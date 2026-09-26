@@ -14,7 +14,7 @@
   <img src="docs/assets/status/research-status.svg" alt="Main experiments, concentration controls, static diagnostics and path experiment complete; recursive extension is future work" width="92%">
 </p>
 
-Main experiments, concentration-matched controls, static diagnostics and the controlled optimization-path experiment are complete. The manuscript is under author review (author-reported status); no acceptance or publication is claimed. **Clean end-to-end training reproduction is not yet packaged.**
+The manuscript is under author review (author-reported status); no acceptance or publication is claimed. Evidence verification is packaged; full training reproduction still requires external datasets, model assets, and runtime dependencies.
 
 ## Research Snapshot
 
@@ -24,9 +24,7 @@ Main experiments, concentration-matched controls, static diagnostics and the con
 
 **Current finding:** Wrong-label organization can change Student behavior under the tested controls. The effects are conditional, the path mediator is unresolved, and recursive propagation has not been tested.
 
-## Current Study
-
-*Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity* is a controlled empirical study. Current evidence is **single-generation**; propagation across generations is future work. [Study description](studies/mlbd2026_wrong_label_organization/README.md).
+**Current study:** *Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity* — a controlled, single-generation empirical study. [Study description](studies/mlbd2026_wrong_label_organization/README.md).
 
 ## Start Here
 
@@ -73,6 +71,13 @@ R1/R2 reorganize wrong labels within each Source × truth group. CONTROL moves *
   <img src="docs/assets/diagrams/experiment-matrix.svg" alt="Experimental scope: 48 main fits and 16 fresh path fits; concentration controls cover four settings; all current experiments are single-generation" width="92%">
 </p>
 
+Counts exclude discovery and adequacy runs. R1 and R2 reuse REAL fits; they are not eight independent seed replications.
+
+<details>
+<summary><strong>Full experimental design details</strong></summary>
+
+<br>
+
 | Scope | Verified study design |
 | --- | --- |
 | Datasets | CLINC150; BANKING77 |
@@ -85,7 +90,9 @@ R1/R2 reorganize wrong labels within each Source × truth group. CONTROL moves *
 | Evaluation | Secondary, LocalNLL, Primary, Complement |
 | Frozen local / official test sizes | CLINC150: 129 / 4,500; BANKING77: 304 / 3,080 |
 
-Counts exclude discovery and adequacy runs. R1 and R2 reuse REAL fits; they are not eight independent seed replications. [Evidence bindings](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json).
+[Evidence bindings](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json).
+
+</details>
 
 ## Main Findings
 

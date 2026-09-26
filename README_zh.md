@@ -14,7 +14,7 @@
   <img src="docs/assets/status/research-status.svg" alt="主实验、浓度匹配对照、静态诊断和路径实验已完成；递归扩展属于未来工作" width="92%">
 </p>
 
-主实验、concentration-matched CONTROL、静态诊断及受控 optimization-path 实验已经完成；论文处于作者审阅阶段。**当前证据只覆盖单代研究**，不声称已经验证递归传播。
+论文处于作者审阅阶段，尚不声称录用或发表。仓库已打包证据核验材料；完整训练复现仍需外部数据集、模型资产和运行环境依赖。
 
 ## 研究快照
 
@@ -24,9 +24,7 @@
 
 **当前发现：** 在已测试控制条件下，错误标签的组织方式可以改变 Student 行为；影响取决于具体设置，路径中介尚未识别，递归传播尚未测试。
 
-## 当前研究
-
-*Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity* 是 **controlled empirical study**，不是新算法论文。[研究说明](studies/mlbd2026_wrong_label_organization/README.md)。
+**当前研究：** *Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity*，一项受控的单代实证研究，并非新算法论文。[研究说明](studies/mlbd2026_wrong_label_organization/README.md)。
 
 ## 从这里开始
 
@@ -59,10 +57,19 @@ R1/R2 不移动 input、truth 或 correct cells，在各 Source × truth 组内�
   <img src="docs/assets/diagrams/experiment-matrix.svg" alt="实验范围：48 次正式主实验拟合、16 次全新路径拟合；浓度匹配对照覆盖四种数据集与 Student 设置；当前实验均为单代" width="92%">
 </p>
 
+统计不含探索与充分性运行；R1/R2 共用 REAL 拟合。
+
+<details>
+<summary><strong>完整实验设计</strong></summary>
+
+<br>
+
 - CLINC150、BANKING77；Sources 为 BERT-base、RoBERTa-base、DeBERTa-v3-small；Students 为 RoBERTa-base、XLNet-base-cased。
 - 主实验：2 × 2 × 4 seeds × REAL/R1/R2 = **48 formal fits**。R1/R2 共用 REAL，不是八个独立 seed 重复。
 - Path：CLINC150 × XLNet，REAL/CONTROL × 原顺序/反转完整 minibatch 顺序 × 4 seeds = **16 fresh fits**；末尾不完整 batch 保持最后。
 - 固定 seed 顺序：167174636、1852328752、1231418446、1461753708。
+
+</details>
 
 ## 主要发现
 
