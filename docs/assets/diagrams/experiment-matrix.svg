@@ -1,20 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="238" viewBox="0 0 880 238" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="294" viewBox="0 0 880 294" role="img" aria-labelledby="title desc">
   <title id="title">Formal main and fresh path experiment scope</title>
-  <desc id="desc">Main: two datasets by two Students by four seeds by three conditions equals 48 fits. Separate path intervention: one setting, two conditions, two orders and four seeds equals 16 fresh fits. Concentration controls are additional and not included in the 48 count.</desc>
-  <rect width="880" height="238" rx="12" fill="#f4f6f8"/>
-  <g font-family="Arial, sans-serif" fill="#243746">
-    <text x="24" y="33" font-size="18" font-weight="700">Experimental scope</text>
-    <rect x="24" y="53" width="405" height="121" rx="8" fill="#e4edf2"/>
-    <rect x="450" y="53" width="405" height="121" rx="8" fill="#e2eeea"/>
-    <text x="42" y="82" font-size="17" font-weight="700">48 main fits</text>
-    <text x="42" y="108" font-size="14">CLINC150 / BANKING77 × RoBERTa / XLNet</text>
-    <text x="42" y="133" font-size="14">× 4 Student seeds × REAL / R1 / R2</text>
-    <text x="42" y="157" font-size="12">R1 and R2 share REAL; no extra independent seeds</text>
-    <text x="468" y="82" font-size="17" font-weight="700">16 fresh path fits</text>
-    <text x="468" y="108" font-size="14">CLINC150 × XLNet × REAL / CONTROL</text>
-    <text x="468" y="133" font-size="14">× original / reversed presentation × 4 seeds</text>
-    <text x="468" y="157" font-size="12">Final partial minibatch remains last</text>
-    <text x="24" y="203" font-size="13">Separate concentration-matched CONTROL comparisons cover all four dataset / Student settings.</text>
-    <text x="24" y="224" font-size="13">Current experiments are single-generation. Recursive experiments remain future work.</text>
+  <desc id="desc">The main study has 48 formal fits across two datasets, two Students, four seeds and three conditions. A separate CLINC150 by XLNet path intervention has 16 fresh fits. Concentration-matched CONTROL covers four settings. All current experiments are single-generation.</desc>
+  <style>
+    .surface { fill: #f3f7f8; }
+    .card { fill: #ffffff; stroke: #c7d9dc; }
+    .heading { fill: #233e49; }
+    .muted { fill: #536d77; }
+    .accent { fill: #337f77; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #17262d; }
+      .card { fill: #20343c; stroke: #45636b; }
+      .heading { fill: #eff7f6; }
+      .muted { fill: #bbced0; }
+      .accent { fill: #82cbc0; }
+    }
+  </style>
+  <rect class="surface" width="880" height="294" rx="16"/>
+  <g font-family="Arial, sans-serif">
+    <text class="heading" x="26" y="39" font-size="21" font-weight="700">Experimental scope</text>
+    <text class="muted" x="26" y="61" font-size="13">Two formal experiment blocks; concentration controls remain separate</text>
+    <g stroke-width="1.2">
+      <rect class="card" x="26" y="78" width="405" height="159" rx="11"/>
+      <rect class="card" x="449" y="78" width="405" height="159" rx="11"/>
+    </g>
+    <text class="accent" x="46" y="133" font-size="44" font-weight="700">48</text>
+    <text class="heading" x="113" y="126" font-size="18" font-weight="700">main fits</text>
+    <text class="accent" x="469" y="133" font-size="44" font-weight="700">16</text>
+    <text class="heading" x="536" y="126" font-size="18" font-weight="700">fresh path fits</text>
+    <g class="heading" font-size="13">
+      <text x="46" y="165">2 datasets × 2 Students × 4 seeds</text>
+      <text x="46" y="186">× REAL / R1 / R2</text>
+      <text x="469" y="165">CLINC150 × XLNet × REAL / CONTROL</text>
+      <text x="469" y="186">× original / reversed × 4 seeds</text>
+    </g>
+    <g class="muted" font-size="12">
+      <text x="46" y="217">R1 and R2 share REAL fits</text>
+      <text x="469" y="217">All 16 cells are fresh fits</text>
+    </g>
+    <text class="muted" x="26" y="261" font-size="13">CONTROL comparisons cover all four dataset / Student settings.</text>
+    <text class="muted" x="26" y="282" font-size="13">Current experiments are single-generation.</text>
   </g>
 </svg>

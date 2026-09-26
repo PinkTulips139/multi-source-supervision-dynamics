@@ -1,24 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="246" viewBox="0 0 1040 246" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="296" viewBox="0 0 1040 296" role="img" aria-labelledby="title desc">
   <title id="title">Multi-source supervision research map</title>
-  <desc id="desc">Current single-generation study: controlled wrong-label assignment, Student consequences, bounded mechanism analysis, optimization-path sensitivity. Recursive propagation and possible mitigation remain future work.</desc>
-  <rect width="1040" height="246" rx="14" fill="#f4f6f8"/>
-  <g font-family="Arial, sans-serif" fill="#243746">
-    <text x="28" y="34" font-size="19" font-weight="700">From controlled supervision to learning dynamics</text>
-    <text x="28" y="59" font-size="13">Current evidence: single generation · controlled empirical study · mediator unidentified</text>
-    <g fill="#e4edf2" stroke="#8599a6" stroke-width="1.2">
-      <rect x="28" y="87" width="214" height="78" rx="8"/>
-      <rect x="281" y="87" width="214" height="78" rx="8"/>
-      <rect x="534" y="87" width="214" height="78" rx="8"/>
-      <rect x="787" y="87" width="225" height="78" rx="8"/>
+  <desc id="desc">Current single-generation evidence follows wrong-label organization, Student consequences, bounded mechanism analysis and setting-level optimization-path sensitivity. Recursive training, error propagation and possible mitigation form a separate future-work lane.</desc>
+  <style>
+    .surface { fill: #f3f7f8; }
+    .card { fill: #ffffff; stroke: #c7d9dc; }
+    .future { fill: #eaf1f2; stroke: #87a4ab; }
+    .heading { fill: #233e49; }
+    .muted { fill: #536d77; }
+    .accent { fill: #337f77; }
+    .arrow { fill: #60838b; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #17262d; }
+      .card { fill: #20343c; stroke: #45636b; }
+      .future { fill: #1e3138; stroke: #78969d; }
+      .heading { fill: #eff7f6; }
+      .muted { fill: #bbced0; }
+      .accent { fill: #82cbc0; }
+      .arrow { fill: #9dc0c3; }
+    }
+  </style>
+  <rect class="surface" width="1040" height="296" rx="16"/>
+  <g font-family="Arial, sans-serif">
+    <text class="heading" x="28" y="38" font-size="21" font-weight="700">Research map</text>
+    <text class="muted" x="28" y="62" font-size="14">Controlled empirical study · single generation · mediator unresolved</text>
+    <text class="accent" x="28" y="88" font-size="12" font-weight="700" letter-spacing="1.3">CURRENT EVIDENCE</text>
+    <g stroke-width="1.2">
+      <rect class="card" x="28" y="101" width="214" height="83" rx="10"/>
+      <rect class="card" x="281" y="101" width="214" height="83" rx="10"/>
+      <rect class="card" x="534" y="101" width="214" height="83" rx="10"/>
+      <rect class="card" x="787" y="101" width="225" height="83" rx="10"/>
     </g>
-    <g text-anchor="middle" font-size="15">
-      <text x="135" y="119">Wrong-label organization</text><text x="135" y="145" font-size="12">Correctness and marginals fixed</text>
-      <text x="388" y="119">Student consequences</text><text x="388" y="145" font-size="12">Local / global; transfer / NLL</text>
-      <text x="641" y="119">Bounded mechanism analysis</text><text x="641" y="145" font-size="12">CONTROL + static diagnostics</text>
-      <text x="899" y="119">Optimization-path sensitivity</text><text x="899" y="145" font-size="12">CLINC150 × XLNet only</text>
+    <g text-anchor="middle">
+      <text class="heading" x="135" y="132" font-size="14" font-weight="700">Wrong-label organization</text>
+      <text class="muted" x="135" y="159" font-size="12">Correctness and marginals fixed</text>
+      <text class="heading" x="388" y="132" font-size="14" font-weight="700">Student consequences</text>
+      <text class="muted" x="388" y="159" font-size="12">Transfer / NLL; local / global</text>
+      <text class="heading" x="641" y="132" font-size="14" font-weight="700">Bounded mechanism analysis</text>
+      <text class="muted" x="641" y="159" font-size="12">CONTROL + static diagnostics</text>
+      <text class="heading" x="899" y="132" font-size="14" font-weight="700">Optimization-path sensitivity</text>
+      <text class="muted" x="899" y="159" font-size="12">CLINC150 × XLNet only</text>
     </g>
-    <g font-size="24" text-anchor="middle" fill="#617e90"><text x="262" y="134">→</text><text x="515" y="134">→</text><text x="767" y="134">→</text></g>
-    <rect x="28" y="185" width="984" height="40" rx="7" fill="#f0eee7" stroke="#9b947f" stroke-dasharray="5 4"/>
-    <text x="47" y="210" font-size="14">FUTURE WORK  →  Recursive / multi-generation training  →  Error propagation  →  Possible mitigation / Source mixing</text>
+    <g class="arrow" text-anchor="middle" font-size="23">
+      <text x="261" y="151">→</text>
+      <text x="514" y="151">→</text>
+      <text x="767" y="151">→</text>
+    </g>
+    <rect class="future" x="28" y="207" width="984" height="70" rx="10" stroke-width="1.2" stroke-dasharray="6 5"/>
+    <text class="accent" x="46" y="231" font-size="12" font-weight="700" letter-spacing="1.3">FUTURE WORK</text>
+    <g class="heading" font-size="14">
+      <text x="46" y="258">Recursive / multi-generation training</text>
+      <text x="390" y="258">Error propagation</text>
+      <text x="640" y="258">Possible mitigation / Source mixing</text>
+    </g>
+    <g class="arrow" font-size="19">
+      <text x="351" y="259">→</text>
+      <text x="599" y="259">→</text>
+    </g>
   </g>
 </svg>

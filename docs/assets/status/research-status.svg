@@ -1,10 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="86" viewBox="0 0 1040 86" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="226" viewBox="0 0 1040 226" role="img" aria-labelledby="title desc">
   <title id="title">Research status</title>
-  <desc id="desc">Main experiments, concentration controls, static diagnostics and path experiment complete. Manuscript under author review. Recursive extension is future work.</desc>
-  <rect width="1040" height="86" rx="10" fill="#f4f6f8"/>
-  <g font-family="Arial, sans-serif" font-size="13" fill="#243746">
-    <g fill="#e2eeea"><rect x="14" y="14" width="238" height="27" rx="5"/><rect x="266" y="14" width="246" height="27" rx="5"/><rect x="526" y="14" width="243" height="27" rx="5"/><rect x="783" y="14" width="243" height="27" rx="5"/></g>
-    <text x="27" y="32">Main experiments: complete</text><text x="279" y="32">Concentration controls: complete</text><text x="539" y="32">Static diagnostics: complete</text><text x="796" y="32">Path experiment: complete</text>
-    <text x="27" y="65">Manuscript: under author review</text><text x="539" y="65" font-weight="700">Recursive extension: FUTURE WORK</text>
+  <desc id="desc">Current evidence is single-generation. Main experiments, concentration controls, static diagnostics and path experiment are complete. Recursive extension is future work.</desc>
+  <style>
+    .surface { fill: #f3f7f8; }
+    .card { fill: #ffffff; stroke: #c7d9dc; }
+    .future { fill: #eaf1f2; stroke: #87a4ab; }
+    .heading { fill: #233e49; }
+    .muted { fill: #536d77; }
+    .accent { fill: #337f77; }
+    .dot { fill: #4a9b90; }
+    @media (prefers-color-scheme: dark) {
+      .surface { fill: #17262d; }
+      .card { fill: #20343c; stroke: #45636b; }
+      .future { fill: #1e3138; stroke: #78969d; }
+      .heading { fill: #eff7f6; }
+      .muted { fill: #bbced0; }
+      .accent { fill: #82cbc0; }
+      .dot { fill: #82cbc0; }
+    }
+  </style>
+  <rect class="surface" width="1040" height="226" rx="16"/>
+  <g font-family="Arial, sans-serif">
+    <text class="heading" x="28" y="38" font-size="21" font-weight="700">Research status</text>
+    <text class="muted" x="28" y="62" font-size="14">Current evidence is single-generation · manuscript under author review</text>
+    <g stroke-width="1.2">
+      <rect class="card" x="28" y="82" width="236" height="70" rx="10"/>
+      <rect class="card" x="277" y="82" width="236" height="70" rx="10"/>
+      <rect class="card" x="526" y="82" width="236" height="70" rx="10"/>
+      <rect class="card" x="775" y="82" width="237" height="70" rx="10"/>
+    </g>
+    <g class="heading" font-size="14" font-weight="700">
+      <text x="46" y="112">Main experiments</text>
+      <text x="295" y="112">Concentration controls</text>
+      <text x="544" y="112">Static diagnostics</text>
+      <text x="793" y="112">Path experiment</text>
+    </g>
+    <g class="dot">
+      <circle cx="49" cy="133" r="4"/>
+      <circle cx="298" cy="133" r="4"/>
+      <circle cx="547" cy="133" r="4"/>
+      <circle cx="796" cy="133" r="4"/>
+    </g>
+    <g class="muted" font-size="13">
+      <text x="61" y="138">complete</text>
+      <text x="310" y="138">complete</text>
+      <text x="559" y="138">complete</text>
+      <text x="808" y="138">complete</text>
+    </g>
+    <rect class="future" x="28" y="174" width="984" height="36" rx="9" stroke-width="1.2" stroke-dasharray="6 5"/>
+    <text class="heading" x="46" y="197" font-size="14" font-weight="700">Recursive extension</text>
+    <text class="accent" x="992" y="197" text-anchor="end" font-size="13" font-weight="700">FUTURE WORK</text>
   </g>
 </svg>

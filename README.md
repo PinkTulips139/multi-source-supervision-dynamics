@@ -1,17 +1,32 @@
+<div align="center">
+
 # Multi-Source Supervision Dynamics
 
-Controlled studies of how erroneous multi-source supervision is organized, transferred, and propagated through learning systems.
+**Controlled empirical studies of how erroneous multi-source supervision is organized, transferred, and propagated through learning systems.**
 
-[中文说明](README_zh.md) · [Current study](studies/mlbd2026_wrong_label_organization/README.md) · [Evidence routes](docs/EVIDENCE_ROUTES.md) · [Reproduction](docs/REPRODUCIBILITY.md)
+<p><a href="studies/mlbd2026_wrong_label_organization/README.md">Current study</a> · <a href="docs/EVIDENCE_ROUTES.md">Evidence routes</a> · <a href="docs/REPRODUCIBILITY.md">Reproduction</a> · <a href="docs/KNOWN_LIMITATIONS.md">Limitations</a> · <a href="README_zh.md">中文说明</a></p>
 
-**Current study:** *Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity*.
-This is a controlled empirical study. Current evidence is **single-generation**; propagation across generations is future work.
+</div>
 
-![Main experiments, concentration controls, static diagnostics and path experiment complete; recursive extension is future work](docs/assets/status/research-status.svg)
+## Research Status
+
+<p align="center">
+  <img src="docs/assets/status/research-status.svg" alt="Main experiments, concentration controls, static diagnostics and path experiment complete; recursive extension is future work" width="92%">
+</p>
 
 Main experiments, concentration-matched controls, static diagnostics and the controlled optimization-path experiment are complete. The manuscript is under author review (author-reported status); no acceptance or publication is claimed. **Clean end-to-end training reproduction is not yet packaged.**
 
-**Finding:** Wrong-label organization can change Student behavior under the tested controls. The effects are conditional, the path mediator is unresolved, and recursive propagation has not been tested.
+## Research Snapshot
+
+| Current scope | Main study | Path intervention | Future extension |
+| --- | --- | --- | --- |
+| Single-generation | 48 formal fits | 16 fresh fits | Recursive training · future work |
+
+**Current finding:** Wrong-label organization can change Student behavior under the tested controls. The effects are conditional, the path mediator is unresolved, and recursive propagation has not been tested.
+
+## Current Study
+
+*Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity* is a controlled empirical study. Current evidence is **single-generation**; propagation across generations is future work. [Study description](studies/mlbd2026_wrong_label_organization/README.md).
 
 ## Start Here
 
@@ -31,7 +46,13 @@ Suggested reading: overview → study → evidence routes → limitations. For t
 
 Holding Source correctness and key marginal statistics fixed, does changing which wrong label is assigned to which input alter downstream Student behavior? Three Sources supply hard labels; a Student learns from their equally weighted aggregate soft targets. Source identity is retained for auditing, not supplied as a separate Student input.
 
-## What Changes / What Stays Fixed
+## Study Map
+
+<p align="center">
+  <img src="docs/assets/diagrams/research-map.svg" alt="Current evidence: wrong-label organization, Student consequences, bounded mechanism analysis and setting-level optimization-path sensitivity. Future work: recursive training, error propagation and possible mitigation" width="92%">
+</p>
+
+## Controlled Design
 
 | Quantity | R1 / R2 | Concentration-matched CONTROL |
 | --- | --- | --- |
@@ -42,11 +63,15 @@ Holding Source correctness and key marginal statistics fixed, does changing whic
 | Source × truth wrong-label marginals | Preserved | Preserved |
 | Wrong-label identity ↔ input assignment | Changed | Changed |
 | Each row's sorted raw-target probabilities | Not constrained | Preserved |
-| Support size, entropy, sum(q²), same-wrong total | Not constrained | Preserved; consequences of the above constraints |
+| Support size, entropy, sum(q²), same-wrong total | Not constrained | Preserved by the CONTROL construction |
 
 R1/R2 reorganize wrong labels within each Source × truth group. CONTROL moves **whole ordered Source-label triples** between matched rows. It tests whether concentration alone suffices to explain the observed contrasts; it cannot establish that smoothness is irrelevant or that identity is the unique mechanism. [Definitions and validators](docs/EVIDENCE_ROUTES.md#construction-and-invariants).
 
-## At a Glance
+## Experimental Scope
+
+<p align="center">
+  <img src="docs/assets/diagrams/experiment-matrix.svg" alt="Experimental scope: 48 main fits and 16 fresh path fits; concentration controls cover four settings; all current experiments are single-generation" width="92%">
+</p>
 
 | Scope | Verified study design |
 | --- | --- |
@@ -64,17 +89,26 @@ Counts exclude discovery and adequacy runs. R1 and R2 reuse REAL fits; they are 
 
 ## Main Findings
 
-- Controlled wrong-label organization can alter downstream Student behavior.
-- Specific shared-wrong transfer and true-label degradation can dissociate. Local degradation does not establish robust global degradation.
-- Concentration-matched contrasts weaken a smoothness-only explanation in three settings, with a non-unanimous CLINC150 × XLNet result.
-- The tested static diagnostics provide no unified mechanism explanation.
-- The CLINC150 × XLNet intervention supports setting-level optimization-path sensitivity. The mediator remains unidentified.
+- **Organization matters.** Controlled wrong-label organization can alter downstream Student behavior.
+- **Transfer and degradation can diverge.** Specific shared-wrong transfer and true-label degradation can dissociate.
+- **Local is not global.** Local degradation does not establish robust global degradation.
+- **Concentration controls.** Matched contrasts weaken a smoothness-only explanation in three settings, with a non-unanimous CLINC150 × XLNet result.
+- **No unified static mechanism.** The tested static diagnostics provide no unified mechanism explanation.
+- **Path sensitivity is setting-bounded.** The CLINC150 × XLNet intervention supports setting-level optimization-path sensitivity. The mediator remains unidentified.
 
 These [bounded findings](docs/EVIDENCE_ROUTES.md) do not validate mitigation, recursive collapse, a unique mechanism, or the claim that lower correlation is always better.
 
-## Study Map
+## Results Snapshot
 
-![Current controlled study, consequence analysis, bounded mechanism analysis and optimization-path sensitivity; recursive training and mitigation remain future work](docs/assets/diagrams/research-map.svg)
+All ordinary contrasts are **REAL − comparator**. Secondary is probability on the frozen shared-wrong label; NLL is in nats. Positive NLL means worse true-label scoring under REAL.
+
+| Descriptive observation | Frozen evidence |
+| --- | --- |
+| CLINC150 × XLNet, R1: Secondary +0.029098; LocalNLL −0.024081 | [Main table](studies/mlbd2026_wrong_label_organization/results/TABLE_1_DATA.csv): transfer and true-label harm need not agree |
+| CONTROL: both local endpoints positive across all four seeds in 3/4 settings | [Control table](studies/mlbd2026_wrong_label_organization/results/CONTROL_TABLE_DATA.csv): the fourth setting remains visible |
+| Path interaction: LocalNLL `++++`; Secondary `+-++` | [All-seed path table](studies/mlbd2026_wrong_label_organization/results/M3_RESULT_TABLE_DATA.csv) and [summaries](studies/mlbd2026_wrong_label_organization/results/M3_SUMMARY_DATA.csv) |
+
+The path experiment retains seed **1852328752**, whose large response strongly affects the mean and Secondary direction. Four seeds provide limited precision; signs are descriptive, not significance tests. No setting-level pooling is used.
 
 ## Reproduction
 
@@ -91,19 +125,24 @@ The verifier reads files and checks hashes and identities without importing hist
 
 Construction and training implementations are available for inspection, with external dependencies explicitly identified as unbundled. Do not run historical builders against canonical artifacts. See [supported stages and gaps](docs/REPRODUCIBILITY.md).
 
-## Results Snapshot
+## Reproducibility and Evidence
 
-All ordinary contrasts are **REAL − comparator**. Secondary is probability on the frozen shared-wrong label; NLL is in nats. Positive NLL means worse true-label scoring under REAL.
+Follow [evidence routes](docs/EVIDENCE_ROUTES.md) from each result to its seed-level artifact, construction/config authority and implementation. The [manifest](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json) records source locations and SHA256 values. Imports came from an uncommitted research workspace; its Git HEAD alone does not identify their content.
 
-| Descriptive observation | Frozen evidence |
-| --- | --- |
-| CLINC150 × XLNet, R1: Secondary +0.029098; LocalNLL −0.024081 | [Main table](studies/mlbd2026_wrong_label_organization/results/TABLE_1_DATA.csv): transfer and true-label harm need not agree |
-| CONTROL: both local endpoints positive across all four seeds in 3/4 settings | [Control table](studies/mlbd2026_wrong_label_organization/results/CONTROL_TABLE_DATA.csv): the fourth setting remains visible |
-| Path interaction: LocalNLL `++++`; Secondary `+-++` | [All-seed path table](studies/mlbd2026_wrong_label_organization/results/M3_RESULT_TABLE_DATA.csv) and [summaries](studies/mlbd2026_wrong_label_organization/results/M3_SUMMARY_DATA.csv) |
+Result CSVs are byte-identical copies. Three JSON records have machine-location redactions recorded by selector. Embedded historical paths are provenance locators, not promises that all original assets are included. [Packaging details](docs/PACKAGING.md).
 
-The path experiment retains seed **1852328752**, whose large response strongly affects the mean and Secondary direction. Four seeds provide limited precision; signs are descriptive, not significance tests. No setting-level pooling is used.
+## Limitations and Scope
+
+This is a single-generation study, not a new algorithm. The full matrix was not preregistered from the outset. Dataset comparisons also change Source panels, label spaces and subsets. Static analyses are exploratory; the path intervention jointly changes presentation, learning-rate exposure and random-stream assignment. It does not isolate optimizer, dropout or batch-order mediation. [Known limitations](docs/KNOWN_LIMITATIONS.md).
+
+## Roadmap
+
+Current controlled study → separately designed recursive experiments → error propagation analysis → possible mitigation/source mixing, conditional on evidence. Later stages are **future work**. [Roadmap](docs/ROADMAP.md).
 
 ## Repository Structure
+
+<details>
+<summary><strong>Repository structure</strong></summary>
 
 ```text
 docs/                         Navigation, limitations, chronology, local SVGs
@@ -122,19 +161,7 @@ tests/                        Package-verifier regression checks
 
 Shared `src/` modules will be introduced when backed by a portable implementation. Original scientific files have not been moved to fit a proposed tree.
 
-## Reproducibility and Evidence
-
-Follow [evidence routes](docs/EVIDENCE_ROUTES.md) from each result to its seed-level artifact, construction/config authority and implementation. The [manifest](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json) records source locations and SHA256 values. Imports came from an uncommitted research workspace; its Git HEAD alone does not identify their content.
-
-Result CSVs are byte-identical copies. Three JSON records have machine-location redactions recorded by selector. Embedded historical paths are provenance locators, not promises that all original assets are included. [Packaging details](docs/PACKAGING.md).
-
-## Limitations and Scope
-
-This is a single-generation study, not a new algorithm. The full matrix was not preregistered from the outset. Dataset comparisons also change Source panels, label spaces and subsets. Static analyses are exploratory; the path intervention jointly changes presentation, learning-rate exposure and random-stream assignment. It does not isolate optimizer, dropout or batch-order mediation. [Known limitations](docs/KNOWN_LIMITATIONS.md).
-
-## Roadmap
-
-Current controlled study → separately designed recursive experiments → error propagation analysis → possible mitigation/source mixing, conditional on evidence. Later stages are **future work**. [Roadmap](docs/ROADMAP.md).
+</details>
 
 ## Citation / Rights / Third-Party
 
