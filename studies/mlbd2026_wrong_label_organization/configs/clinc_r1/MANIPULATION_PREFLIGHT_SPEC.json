@@ -1,0 +1,68 @@
+{
+  "stage_name": "REAL_CLINC150_MINIMAL_STUDENT_CONSEQUENCE_MANIPULATION_PREFLIGHT_V1",
+  "stage_timestamp_utc": "2026-09-07T07:58:26Z",
+  "formal_dataset": "CLINC150",
+  "dataset_revision": "828f8093932c8fe6ca7936c3d2e52903b1c523de",
+  "task_scope": "IN_SCOPE_150_CLASS_PRIMARY",
+  "oos_included": false,
+  "student_supervision_pool": "CLINC150_OFFICIAL_DEV",
+  "student_supervision_pool_size": 3000,
+  "source_dev_checkpoint_selection_exposure": true,
+  "source_dev_checkpoint_selection_exposure_limitation": "The official dev split selected each frozen Source best checkpoint, so this supervision pool is not independent of Source model selection.",
+  "official_test_used_for_supervision": false,
+  "sources": [
+    {
+      "key": "bert",
+      "repository": "google-bert/bert-base-uncased",
+      "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+      "best_checkpoint_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_bert/checkpoints/epoch_05",
+      "run_status_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_bert/RUN_STATUS.json",
+      "validation_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_bert/VALIDATION_REPORT.json",
+      "expected_best_dev_accuracy": 0.9603333333333334,
+      "tokenizer_class": "AutoTokenizer"
+    },
+    {
+      "key": "roberta",
+      "repository": "FacebookAI/roberta-base",
+      "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "best_checkpoint_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_roberta/checkpoints/epoch_05",
+      "run_status_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_roberta/RUN_STATUS.json",
+      "validation_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/source_roberta/VALIDATION_REPORT.json",
+      "expected_best_dev_accuracy": 0.9713333333333334,
+      "tokenizer_class": "AutoTokenizer"
+    },
+    {
+      "key": "deberta",
+      "repository": "microsoft/deberta-v3-small",
+      "revision": "a36c739020e01763fe789b4b85e2df55d6180012",
+      "best_checkpoint_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_deberta_numerical_remediation_rerun_execution_v3_20260907T063333Z/source_deberta/checkpoints/epoch_05",
+      "run_status_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_deberta_numerical_remediation_rerun_execution_v3_20260907T063333Z/source_deberta/RUN_STATUS.json",
+      "validation_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_deberta_numerical_remediation_rerun_execution_v3_20260907T063333Z/source_deberta/VALIDATION_REPORT.json",
+      "expected_best_dev_accuracy": 0.9576666666666667,
+      "tokenizer_class": "DebertaV2Tokenizer"
+    }
+  ],
+  "dataset_relative_path": "runtime/asset_readiness/real_clinc150_candidate_source_empirical_gate_v1_resume_review_20260907T023437Z/assets/clinc150/data_full.json",
+  "dataset_sha256": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0",
+  "label_mapping_relative_path": "runtime/asset_readiness/real_clinc150_candidate_source_empirical_gate_v1_resume_review_20260907T023437Z/assets/clinc150/label_mapping.json",
+  "label_mapping_sha256": "5db82ce47aaf57cb03fe0b66a0442d0cae56a6d3c84b782076723b5d8c7b9dcc",
+  "domain_mapping_relative_path": "runtime/source_empirical_gate/real_clinc150_candidate_source_empirical_gate_v1_execution_20260907T032735Z/inputs/domains.json",
+  "domain_mapping_sha256": "b947b579d3b8e74b06f93b01083d8efaff2888b43a3e362533bd88a6e1211b3a",
+  "num_labels": 150,
+  "max_sequence_length": 128,
+  "source_weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333],
+  "control_seed": 20260907,
+  "manipulation_type": "WITHIN_TRUTH_CLASS_WRONG_LABEL_PERMUTATION",
+  "rng_derivation": "NumPy SeedSequence([control_seed, source_order, truth_id]) independently defines each Source-by-truth-intent permutation.",
+  "directional_contrast_screening_rule": {
+    "precommitted_before_inference": true,
+    "directional_alignment_changed": "At least one pairwise same-wrong-label fraction differs between REAL and SCRAMBLED.",
+    "clear_directional_change": "At least two of three pairwise fractions strictly decrease, no pair increases, and the sum of pairwise same-wrong-label counts decreases.",
+    "ready_outcome_requires": "All preservation checks PASS and clear_directional_change=true.",
+    "no_numeric_effect_threshold": true
+  },
+  "student_training_authorized": false,
+  "student_inference_authorized": false,
+  "permutation_seed_search_authorized": false,
+  "git_write_authorized": false
+}

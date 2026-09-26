@@ -1,0 +1,388 @@
+{
+  "schema": "BANKING77_PROTOCOL_V1",
+  "stage": "MLBD2026_BANKING77_PROTOCOL_FREEZE_V1",
+  "status": "FROZEN",
+  "freeze_utc": "2026-09-20T14:40:00.301662+00:00",
+  "execution_authorized": false,
+  "scope": "independent dataset/Source-setting validation; no pure dataset or universal learner causal claim",
+  "authority_receipt": "AUTHORITY_RECEIPT.json",
+  "dataset": {
+    "name": "BANKING77",
+    "official_repository": "PolyAI-LDN/task-specific-datasets official author repository",
+    "revision": "57ec275d8078af65b7731c2a98be812d844a6d6b",
+    "raw_assets": [
+      {
+        "path": "official_repository_snapshot.zip",
+        "sha256": "4fa7b0991f81995529328dd281c3ff8130c5c6eba7573d5b3f0c458fbcd166c6",
+        "size_bytes": 1202104
+      },
+      {
+        "path": "banking_data/train.csv",
+        "sha256": "b06e26ac675513959a63135f11b94ea7786ed02da65db93a5650d8838cbc664b",
+        "size_bytes": 839073
+      },
+      {
+        "path": "banking_data/test.csv",
+        "sha256": "d12d6e3bc4c3103966ae786dc435913c0c563dfa328f5a3646d0e62cfeeb474d",
+        "size_bytes": 239961
+      },
+      {
+        "path": "banking_data/categories.json",
+        "sha256": "53261da888122daf2d120d925458631d9619e15d82e56052e7a42e535ce32b63",
+        "size_bytes": 2036
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+        "size_bytes": 18650
+      },
+      {
+        "path": "README.md",
+        "sha256": "7b9ce9069931cc2de89dce8c7ffb53d07806cf413601ccf133b9af5227b3a373",
+        "size_bytes": 4735
+      }
+    ],
+    "K": 77,
+    "official_train": 10003,
+    "official_test": 3080,
+    "not_completely_unseen": true,
+    "prior_model_outcome_exposure": false,
+    "label_map_path": "reports/research/method_repository/dataset_model_selection/studies/full_project_portfolio_study_20260805T183852Z/stage_aj_plan_b_p_banking77_unicode15_1_remediation_acquisition_split_execution_and_bounded_pilot_20260814T181114Z/BANKING77_LABEL_MAPPING.json",
+    "label_map_sha256": "92a3571be8bdcf28059101972138e22fe1229c8a46efffa6845cecf41c128d02"
+  },
+  "split": {
+    "new_design_now": "class-stratified group60/10/remainder; distinct Source fitting, Source checkpoint selection, Student supervision",
+    "normalization": "reuse hash-bound Unicode15.1.0 NFKC/full-default-casefold/White_Space implementation ONLY for grouping, never alter model-input text",
+    "normalizer_path": "reports/research/method_repository/dataset_model_selection/studies/full_project_portfolio_study_20260805T183852Z/stage_aj_plan_b_p_banking77_unicode15_1_remediation_acquisition_split_execution_and_bounded_pilot_20260814T181114Z/banking77_unicode151_normalizer.py",
+    "normalizer_sha256": "5b3d7fcffdbed949f67fc03d7ffc295ecfb8d54d8160c1d8d3ec1792f9f37314",
+    "identity": "retain historical RAW_ARCHIVE_LOCATOR sample identity implementation/registry; raw train/test CSV rows unchanged; verify registry digest55ee51c75df56242a7432636d853c73f2ed8c53c0909b0710634b1a613126953 before allocation",
+    "dedup": "equal normalized UTF8 texts form groups; labels conflicting within group STOP; keep official test all3080; quarantine ALL train members of groups touching test (7 historical rows); remaining duplicate members remain together",
+    "group_id": "SHA256(normalized UTF8 text); reject collisions against distinct normalized strings",
+    "allocation": "per class, sort groups by (SHA256(UTF8(\"BANKING77_SPLIT_V1\\n\"+official_commit+\"\\n\"+group_id+\"\\n\")),group_id); first floor(3G/5) Source train, next floor(G/10) selection, remainder Student; all records of each group retained",
+    "order_within_split": "ascending canonical sample ID; no length sorting; no model/outcome-dependent reallocation",
+    "expected_group_totals": {
+      "eligible_rows": 9996,
+      "eligible_groups": 9992,
+      "source_train_groups": 5962,
+      "source_selection_groups": 965,
+      "student_supervision_groups": 3065,
+      "extra_duplicate_rows": 4
+    },
+    "row_count_bounds": {
+      "source_train": [
+        5962,
+        5966
+      ],
+      "source_selection": [
+        965,
+        969
+      ],
+      "student_supervision": [
+        3065,
+        3069
+      ]
+    },
+    "expected_eligible_train_rows": 9996,
+    "minimum_role_support": "each class in all3 roles; if violation STOP, never redraw; historical minimum group quotas21/3/11",
+    "test_access": "read raw text/labels only for immutable identity/leakage audit now or future assets; Source test predictions only AFTER all3 checkpoints locked, solely construct/audit subset; no test metric-based Source/model selection; Student test output only final evaluation",
+    "actual_split_manifest": "NOT_MATERIALIZED_THIS_STAGE; exact algorithm frozen; later hash mapping before any training; raw-identity/count discrepancy STOP"
+  },
+  "sources": [
+    {
+      "key": "bert",
+      "model_id": "google-bert/bert-base-uncased",
+      "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+      "tokenizer_revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+      "seed": 42,
+      "initialization": "pristine pinned pretrained backbone + fresh 77-class head; no CLINC fine-tuned weights"
+    },
+    {
+      "key": "roberta",
+      "model_id": "FacebookAI/roberta-base",
+      "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "tokenizer_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+      "seed": 42,
+      "initialization": "pristine pinned pretrained backbone + fresh 77-class head; no CLINC fine-tuned weights"
+    },
+    {
+      "key": "deberta",
+      "model_id": "microsoft/deberta-v3-small",
+      "revision": "a36c739020e01763fe789b4b85e2df55d6180012",
+      "tokenizer_revision": "a36c739020e01763fe789b4b85e2df55d6180012",
+      "seed": 42,
+      "initialization": "pristine pinned pretrained backbone + fresh 77-class head; no CLINC fine-tuned weights"
+    }
+  ],
+  "source_recipe": {
+    "max_length": 128,
+    "padding": "right; dynamic longest within fixed raw-order microbatch; no length sorting",
+    "truncation": "right",
+    "epochs": 5,
+    "micro_batch": 16,
+    "gradient_accumulation": 2,
+    "effective_batch_nominal": 32,
+    "drop_last": false,
+    "partial_accumulation": "group up to 2 microbatches; loss sums divided by ACTUAL total examples in accumulation group (not fixed /2 for partial group)",
+    "loss": "unsmoothed hard-label cross entropy; arithmetic mean over examples",
+    "label_smoothing": 0,
+    "optimizer": "AdamW",
+    "lr": 2e-05,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1e-08,
+    "amsgrad": false,
+    "weight_decay": 0.01,
+    "optimizer_groups": "all trainable parameters, decay applied to all; historical Source policy, not Student policy",
+    "clip_global_norm": 1.0,
+    "precision": "FP32; no AMP, TF32 disabled",
+    "total_steps": "5*ceil(ceil(N_source_train/16)/2)",
+    "expected_steps": 935,
+    "scheduler": "linear warmup/decay; Lambda(s)=min branch s/W if s<W else max(0,(T-s)/(T-W)); s=0 initially; optimizer then scheduler",
+    "warmup": "W=ceil(0.10*T)",
+    "expected_warmup": 94,
+    "checkpoint": "evaluate source_selection after each of 5 fixed epochs; highest accuracy, exact tie earliest epoch; never early stop",
+    "selection_forbidden": [
+      "Student supervision labels/metrics for checkpoint choice",
+      "test accuracy/logloss/error structure for checkpoint or trio selection"
+    ],
+    "source_quality_gate": "technical finite/completeness/identity gates only; report selection quality; no candidate replacement or new recipe based on quality/error structure",
+    "batch_order": "hash-sorted raw IDs per epoch, defined in seed_order contract",
+    "dropout": "pinned model/sequence-classifier defaults; serialize effective config before fitting",
+    "adaptations_from_CLINC": "K=77; separate selection split; explicit partial-group sample-mean accumulation and standard s=0 scheduler frozen now, not bitwise old Source recipe replay"
+  },
+  "source_fits": 3,
+  "manipulation": {
+    "conditions": [
+      "REAL",
+      "SCRAMBLED_R1",
+      "SCRAMBLED_R2"
+    ],
+    "realizations": 2,
+    "seed_records": {
+      "R1": {
+        "canonical_utf8_lf_payload": "project=paper2_correlation_aware_recursive_training\ndataset_revision=57ec275d8078af65b7731c2a98be812d844a6d6b\ndataset_archive_sha256=4fa7b0991f81995529328dd281c3ff8130c5c6eba7573d5b3f0c458fbcd166c6\nprotocol=MLBD2026_BANKING77_PROTOCOL_FREEZE_V1\npurpose=DIRECTION_SCRAMBLED_R1\n",
+        "sha256": "a3efd026166d48275b3c8a220ac1c5a5076380824cd8719f4c898bd7d9e2ec06",
+        "seed_decimal": "2589517172764919847"
+      },
+      "R2": {
+        "canonical_utf8_lf_payload": "project=paper2_correlation_aware_recursive_training\ndataset_revision=57ec275d8078af65b7731c2a98be812d844a6d6b\ndataset_archive_sha256=4fa7b0991f81995529328dd281c3ff8130c5c6eba7573d5b3f0c458fbcd166c6\nprotocol=MLBD2026_BANKING77_PROTOCOL_FREEZE_V1\npurpose=DIRECTION_SCRAMBLED_R2\n",
+        "sha256": "b3c75a2c5a5e684778ec32ce93de9ba9adea1ca3adbefc7158cbc305f3745fbf",
+        "seed_decimal": "3731049962840942663"
+      }
+    },
+    "seed_derivation": "exact listed UTF8 LF payload incl final LF; SHA256 first8 bytes big endian modulo2**63; JSON decimal strings",
+    "PRNG": "numpy2.3.5 Generator(PCG64(SeedSequence([seed,source_index_1based,truth_id])))",
+    "algorithm": "each realization independently from REAL; sources bert,roberta,deberta; truths0..76; ascending canonical pool row indices wrong for that Source/truth; exactly one rng.permutation(original wrong labels) call including empty/singleton groups; assign only those rows",
+    "invariants": [
+      "sample IDs/text/truth/order/source identity",
+      "per-Source per-example correctness",
+      "per-Source per-truth wrong-label multiset/full hard confusion matrix",
+      "per-example q(true)",
+      "equal Source weights",
+      "pairwise both-wrong masks",
+      "test predictions and Source-defined local subset unchanged"
+    ],
+    "not_invariants": [
+      "wrong-label identity per example",
+      "support/entropy/concentration",
+      "same-wrong counts",
+      "Student metrics"
+    ],
+    "quality_scope": "hard-label accuracy/confusion only, not preserved soft logloss/calibration",
+    "candidate_budget": "exactly1 candidate per realization; independent attempt ledger before PRNG; no redraw/search/diagnostic selection",
+    "validity": "only identity/invariant/serialization/algorithm failures reject; zero changes/increased alignment/R1=R2/REAL-identical remain VALID, never redraw",
+    "scientific_informativeness": "zero contrast reported INCONCLUSIVE for identity consequence; does not invalidate realization or authorize replacement",
+    "diagnostics": "all/changed-only L1, entropy,support,maxprob,sum(q^2),vote patterns,qtrue exact,Source masks,marginals,pairwise same/both wrong,R1/R2 overlap",
+    "raw_target": "float32 zeros(N,77), sequential add np.float32(1/3) at hard labels in Source order; no renormalization; exact reconstruction; simplex atol1e-6",
+    "supervision_hashes": "PENDING_SOURCE_PREDICTIONS_NOT_GENERATED; freeze exact hashes before Student fits, never infer or fabricate now"
+  },
+  "student": {
+    "model_id": "FacebookAI/roberta-base",
+    "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+    "tokenizer_revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+    "classes": 77,
+    "initialization": "pristine pretrained backbone + fresh77-class classification head, no trained Source/CLINC/CLEAN inheritance",
+    "seeds": [
+      167174636,
+      1852328752,
+      1231418446,
+      1461753708
+    ],
+    "recipe": {
+      "epochs": 35,
+      "batch": 50,
+      "gradient_accumulation": 1,
+      "drop_last": false,
+      "partial_batch": "include final partial batch, mean over its actual examples",
+      "lr": 5e-05,
+      "optimizer": "AdamW",
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "epsilon": 1e-08,
+      "amsgrad": false,
+      "weight_decay": 0.01,
+      "groups": "two: no_decay iff name contains bias or LayerNorm.weight; all other trainable parameters decay; exact-once audit",
+      "clip_global_norm": 1.0,
+      "precision": "FP32; no AMP; TF32 disabled",
+      "max_length": 128,
+      "padding": "right; dynamic longest in fixed raw-order batch; no length sorting",
+      "truncation": "right",
+      "dropout": "pinned RoBERTa sequence-classification defaults, no override",
+      "total_steps": "35*ceil(N_student_supervision/50)",
+      "expected_batches_per_epoch": 62,
+      "expected_total_steps": 2170,
+      "warmup": "floor(.10*T)",
+      "expected_warmup": 217,
+      "scheduler": "Lambda(s)=s/W if s<W else max(0,(T-s)/(T-W)); s=0 initially; optimizer then scheduler",
+      "q_raw": "float32 equal hard Source votes; sequential add float32(1/3) in bert,roberta,deberta order; no renormalization",
+      "q_smooth": "0.9*q_raw+0.1/77 (fixed UNIFORM, not empirical class prior despite unbalanced supervision pool)",
+      "loss": "mean_examples[-sum_classes(q_smooth*log_softmax(logits))]; external only; no extra /77, no double smoothing",
+      "checkpoint": "FINAL_EPOCH_35_ONLY",
+      "early_stopping": false,
+      "best_checkpoint": false,
+      "evaluation": "final checkpoint only, eval mode, batches128 in canonical test order; FP32 saved logits and FP64 log-softmax recomputation",
+      "new_CLEAN_fits": 0,
+      "BANKING_specific_adequacy": "NOT_ESTABLISHED; no hidden post-outcome adequacy rescue or hyperparameter tuning"
+    },
+    "choice_rationale": "same learner setting isolates dataset/Source-context transport; chosen master RoBERTa option before any BANKING outcomes; CLINC outcome-informed rationale disclosed, not evidence of architecture universality; XLNet not added"
+  },
+  "seed_order": {
+    "same_numeric_seed_not_same_stochastic_realization": true,
+    "per_seed_pairing": "REAL/R1/R2 same complete pristine tensor digest, head digest, raw example order, initial Python/NumPy/CPU/CUDA RNG states; each optimizer fresh",
+    "epoch_order": "sort canonical sample IDs by (SHA256(UTF8(\"BANKING77_ORDER_V1\\n\"+role+\"\\n\"+decimal_seed+\"\\n\"+decimal_epoch_1based+\"\\n\"+sample_id+\"\\n\")),sample_id); role SOURCE_TRAIN or STUDENT_SUPERVISION, never condition/model identity",
+    "determinism": "Python random/NumPy/torch CPU+CUDA use frozen seed; workers0; deterministic_algorithms true; cudnn deterministic true benchmark false; TF32 false; CUBLAS_WORKSPACE_CONFIG=:4096:8",
+    "execution_order": "Sources bert,roberta,deberta; then each seed in frozen order with REAL,R1,R2; one fit per GPU process; duplicate launch guard",
+    "initial_assets": "hash before first fit; deterministic reload equivalence; optimizer state never inherited"
+  },
+  "local_subset": {
+    "name": "BANKING77_SOURCE_SHARED_FAILURE_TEST_SUBSET",
+    "inclusion": "all unique canonical official-test IDs for which at least2 ORIGINAL REAL Sources predict same wrong label != truth; with3 Sources the shared wrong label is unique",
+    "dedup": "one row per canonical example ID (not one row per pair); normalized-text duplicates retained as separate official examples and grouped for conditional uncertainty",
+    "construction_timing": "after all Source checkpoints/test predictions locked, before ANY Student fit or output; SHA256 ordered IDs/truth/sharedwrong + raw manifest",
+    "size": "L variable, never129; complement exact all3080 minusL",
+    "operational_support_gate": "|L|>=20 AND complement nonempty BEFORE Student launch; if not, freeze available subset and mark SOURCE_SUPPORT_NO_GO/INCONCLUSIVE; no Source/seed/subset replacement",
+    "threshold_rationale": "new prospective operational lower bound, not derived from BANKING outcomes, no power/precision guarantee; even20 can be heterogeneous and imprecise; never shrink threshold after Source outcomes"
+  },
+  "endpoints": {
+    "Primary": "mean_T[-log p_REAL(y)] - mean_T[-log p_r(y)]",
+    "Secondary": "mean_L[p_REAL(w_shared)] - mean_L[p_r(w_shared)]",
+    "LocalNLL": "mean_L[-log p_REAL(y)] - mean_L[-log p_r(y)]",
+    "Complement": "mean_(T\\L)[-log p_REAL(y)] - mean_(T\\L)[-log p_r(y)]",
+    "r": [
+      "SCRAMBLED_R1",
+      "SCRAMBLED_R2"
+    ],
+    "units": {
+      "Primary": "nats",
+      "Secondary": "probability",
+      "LocalNLL": "nats",
+      "Complement": "nats"
+    },
+    "positive": "NLL: REAL worse; Secondary: REAL assigns more shared-wrong probability (not automatically lower accuracy)",
+    "accuracy": "report REAL and comparator accuracy and REAL-comparator accuracy delta separately; positive accuracy delta means REAL better",
+    "reconciliation": "Primary=(|L|/3080)*LocalNLL+(|T\\L|/3080)*Complement within 1e-10; no duplicate subset counting"
+  },
+  "interpretation": {
+    "eligibility": "all 12 fits technically valid, 4 seeds each arm, both one-shot realization validators PASS, local support gate PASS; zero-contrast/identical target realization is valid but its replication evidence INCONCLUSIVE",
+    "sign": "strict FP64 delta>0 / <0 / ==0; report numerical-resolution flag |delta|<=1e-10, never use rounding to change sign; no practical effect-size threshold invented",
+    "per_endpoint_per_realization": "FULL_POSITIVE iff all4>0; FULL_REVERSED iff all4<0; ALL_ZERO iff all4==0; otherwise MIXED_NON_FULL (including ties)",
+    "full_two_realization_local_replication": "for EACH endpoint separately, R1 all4>0 AND R2 all4>0 (8/8); no requirement Secondary and LocalNLL jointly pass",
+    "H1": "report validated nonzero probability/endpoint changes as descriptive controlled behavioral sensitivity; reproducible directional endpoint effects strengthen H1; mixed changes informative heterogeneity, not no effect; all indistinguishable/no usable perturbation INCONCLUSIVE, not equivalence",
+    "H2": "Secondary 8/8>0 strengthens dataset transport; only one realization full-positive PARTIAL_REPLICATION/realization boundary; otherwise fails full directional replication; both fully negative REVERSED boundary; invalid/small/zero-contrast INCONCLUSIVE",
+    "H3": "LocalNLL 8/8>0 strengthens RoBERTa-setting dataset replication; one realization full-positive PARTIAL_REPLICATION; otherwise NON_FULL/MIXED or REVERSED as defined; no mean-positive or3/4 rescue",
+    "H4": "Primary complete independent report, NOT positive success gate; even8/8 positive only BANKING-specific directional support, not retroactive robust global CLINC claim; mixed/reversed informative boundary",
+    "H5": "endpoint-specific only: two full-positive realizations support bounded directional robustness; disagreement is realization sensitivity; two fixed draws do not estimate a realization distribution",
+    "transportability": "conditional DATASET+retrained-SOURCE-ensemble setting transport for RoBERTa, NOT pure dataset causal effect; no new learner tested, H6 NOT_SUPPORTED unchanged; same numeric seed IDs across datasets do not yield matched stochastic realization",
+    "zero_or_small_effect": "report magnitudes/intervals; no significance, equivalence, minimum-effect, joint-endpoint, or standardized-effect rescue",
+    "inconclusive": "technical invalidity/incompletion; |L|<20 or empty complement; zero Student-visible perturbation for a comparator; display reason without relabeling as negative scientific result",
+    "continuation": "once Student execution authorized and source/subset readiness valid, execute all12 irrespective of signs; engineering failure STOP, no automatic retry"
+  },
+  "uncertainty": {
+    "primary_unit": "4 paired training-seed contrasts per comparator; R1/R2 share same REAL and are NOT8 independent experiments; no cross-dataset/learner pooling",
+    "summaries": [
+      "four actual deltas",
+      "mean",
+      "median",
+      "sample SD ddof1",
+      "min/max",
+      "strict sign pattern",
+      "absolute accuracy/NLL/probability metrics"
+    ],
+    "seed_interval": "95% t mean interval df3: mean +/-3.182446305284263*SD/2; conditional fixed dataset/Source/manipulation; exchangeable approximately normal seeds assumption uncheckable n4; not significance gate",
+    "conditional_bootstrap": "10000 paired percentile resamples; fixed trained models, fixed Source-defined subset; normalized-text group is resampling unit (singleton reduces to example bootstrap); sample G groups with replacement and include all group rows each draw; mean uses draw row count",
+    "strata": "separate fixed T,L,complement bootstrap scopes; same index draws across4 seeds,R1/R2 and Secondary/LocalNLL within same scope; no claim of independent intervals",
+    "analysis_rng": "numpy2.3.5 PCG64; seed SHA256 UTF8(\"BANKING77_CONDITIONAL_BOOTSTRAP_V1\\n\"+scope+\"\\n\") first8 bytes big-endian mod2**63; scope TEST,LOCAL,COMPLEMENT; quantile method linear at.025,.975",
+    "small_or_zero": "empty local/complement metric/interval NA; source support no-go prevents new Student launch; SD zero degenerate t interval descriptive only",
+    "realizations": "bounded descriptive R1/R2 effect ranges and paired differences, no realization variance estimate; these two are not independent full experiments",
+    "no_pvalues": true,
+    "multiplicity": "no simultaneous coverage/confirmatory significance claims across endpoints/seeds; directional rules fixed independently of intervals",
+    "prospective": "BANKING rule prospective; previous CLINC uncertainty remains post-hoc"
+  },
+  "control": {
+    "migrate": false,
+    "new_control_fits": 0,
+    "reason": "fixed independent-dataset replication core; CLINC concentration-matched control already tests smoothness-only sufficiency in RoBERTa/CLINC; no universal transport of that mechanistic conclusion",
+    "boundary": "BANKING main scrambles still confound identity and concentration; no BANKING-specific identity-only conclusion; no post-outcome CONTROL addition in this protocol"
+  },
+  "budget": {
+    "source_fits": 3,
+    "student_fits": 12,
+    "total_fit_ceiling": 15,
+    "student_conditions": [
+      "REAL",
+      "SCRAMBLED_R1",
+      "SCRAMBLED_R2"
+    ],
+    "student_epochs_each": 35,
+    "student_steps_each": 2170,
+    "student_total_steps": 26040,
+    "source_steps_each": 935,
+    "source_total_steps": 2805,
+    "all_total_steps": 28845,
+    "steps_conditional_on_identity_counts": true,
+    "GPU_hours": "UNKNOWN",
+    "peak_VRAM": "UNKNOWN",
+    "target_hardware": "single4090 feasibility to be checked later, not verified here",
+    "deadline": "Sep25 local target, feasibility conditional on separately authorized readiness and runtime; do not sacrifice validators or add adaptive truncation"
+  },
+  "failure_policy": {
+    "technical_failure": "STOP, preserve namespace/status/logs, no automatic retraining/seed skip; separate authorized review",
+    "resume": "not authorized; any resume must prove checkpoint+optimizer+scheduler+RNG+order continuity under separate review, never selective scientific retry",
+    "scientific_negative": "complete all frozen Student fits when technically valid; no sign-based stopping",
+    "namespace": "new BANKING stage/fit directories, never CLINC or historical failure destinations"
+  },
+  "future_validation": [
+    "raw dataset/model/tokenizer hashes",
+    "split group disjointness/class coverage/test unchanged",
+    "Source selection ledger only independent selection split",
+    "Source technical completeness/final chosen epoch hashes",
+    "one-shot manipulation transcript/invariants",
+    "local subset before Student/size support",
+    "same-seed initial/order identity across3 arms",
+    "35epochs/fullsteps/finalcheckpoint only",
+    "perfit status/manifest/provenance",
+    "FP64 independent recomputation from saved logits with abs tolerance1e-10",
+    "Primary weighted local/complement reconciliation",
+    "no overwrite/no outcome-driven branch"
+  ],
+  "prohibited": [
+    "training/inference/AutoDL in current freeze",
+    "new learner/extra seed/third realization",
+    "test/source-error-structure model selection",
+    "change split based on Source or Student outcome",
+    "subset redefinition/sample dropping",
+    "BANKING CONTROL added after outcomes",
+    "recursive/weighting",
+    "bootstrap now",
+    "best Student checkpoint/early stopping",
+    "same stochastic realization claim across dataset/learner",
+    "Git writes",
+    "historical result modification"
+  ],
+  "next_recommended_stage": "MLBD2026_BANKING77_ASSET_AND_SPLIT_READINESS_V1",
+  "next_stage_started": false
+}

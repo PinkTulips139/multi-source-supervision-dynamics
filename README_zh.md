@@ -1,108 +1,55 @@
-﻿# Correlation-Aware Recursive Training
+# 多来源监督动态研究
 
-**研究进行中 / Research in Progress**
+[English](README.md) · [当前研究](studies/mlbd2026_wrong_label_organization/README.md) · [证据路线](docs/EVIDENCE_ROUTES.md) · [复现说明](docs/REPRODUCIBILITY.md)
 
-本仓库记录一个正在推进中的研究项目。当前假设和方法设计尚未完成实证验证。
+本仓库长期研究多来源错误监督如何组织、影响 Student，以及未来可能如何跨代传播。
 
-## 中文名称
+当前论文：*Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity*。属于 **controlled empirical study、single-generation study**，不是新算法论文。主实验、concentration-matched CONTROL、静态诊断及受控 optimization-path 实验已经完成；论文处于作者审阅阶段。递归训练、错误传播与 mitigation 均为未来工作。
 
-面向稳定递归训练的多生成器错误相关性感知合成数据混合
+## 从这里开始
 
-## 完整研究方向
+| 目的 | 入口 |
+| --- | --- |
+| 理解问题与术语 | [英文首页](README.md)、[术语](docs/TERMINOLOGY.md) |
+| 检查结果和每个数字来源 | [研究说明](studies/mlbd2026_wrong_label_organization/README.md)、[证据路线](docs/EVIDENCE_ROUTES.md) |
+| 检查构造、seed、invariant | [配置说明](studies/mlbd2026_wrong_label_organization/configs/README.md)、[实现索引](studies/mlbd2026_wrong_label_organization/scripts/reference/README.md) |
+| 复现与可用性 | [复现说明](docs/REPRODUCIBILITY.md) |
+| 判断结论边界 | [限制](docs/KNOWN_LIMITATIONS.md)、[时间线](docs/EXPERIMENTAL_CHRONOLOGY.md) |
+| 跟踪后续工作 | [路线图](docs/ROADMAP.md) |
 
-Beyond Source Diversity: Correlation-Aware Synthetic Data Mixing for Stable Recursive Training
+## 核心问题
 
-## 一句话介绍
+固定 Source 的逐样本对错、真标签 target mass 和 Source × truth 错误标签边际，只改变“哪个错误标签分配给哪个 input”，Student 行为是否仍会改变？
 
-本项目研究在递归训练中，多个合成数据生成器之间的错误相关性是否可以帮助设计更稳定的数据混合策略。
+R1/R2 不移动 input、truth 或 correct cells，在各 Source × truth 组内重排错误标签。CONTROL 在匹配行间移动完整、有序的三个 Source 标签，额外保持每行排序后的 raw-target 概率，以及由此决定的 support、entropy、sum(q²) 和 same-wrong 总量。这不能理解为多个独立机制都已被隔离。
 
-## 当前状态
+## 已验证设计与结论
 
-- 已完成核心文献初步筛选与研读。
-- 已完成研究领域梳理。
-- 已形成初步研究问题和研究假设。
-- 已完成实验框架、基线和评价指标的初步设计。
-- 尚未完成正式实验。
-- 尚未验证核心假设。
-- 尚未形成论文成果。
+- CLINC150、BANKING77；Sources 为 BERT-base、RoBERTa-base、DeBERTa-v3-small；Students 为 RoBERTa-base、XLNet-base-cased。
+- 主实验：2 × 2 × 4 seeds × REAL/R1/R2 = **48 formal fits**。R1/R2 共用 REAL，不是八个独立 seed 重复。
+- Path：CLINC150 × XLNet，REAL/CONTROL × 原顺序/反转完整 minibatch 顺序 × 4 seeds = **16 fresh fits**；末尾不完整 batch 保持最后。
+- 固定 seed 顺序：167174636、1852328752、1231418446、1461753708。
+- wrong-label organization 可以改变 Student；shared-wrong transfer 与 true-label degradation 可解耦；局部退化不等于稳定的全局退化。
+- CONTROL 在三格削弱 smoothness-only explanation，CLINC150 × XLNet 为非一致结果。不能说 smoothness 无关或 identity 是唯一机制。
+- 静态诊断未给出统一机制。Path 实验 LocalNLL interaction 为 `++++`，Secondary 为 `+-++`，支持该 setting 的路径敏感性；中介未识别。
 
-## 研究动机
+差值为 REAL − comparator。Secondary 单位是概率，NLL 是 nats；正 NLL 表示 REAL 更差。Path 实验中 seed 1852328752 的大响应完整保留，没有删掉来美化结论。[冻结表格](studies/mlbd2026_wrong_label_organization/results/TABLE_1_DATA.csv)。
 
-递归使用模型生成数据进行训练，可能导致分布尾部丢失、错误传播和模型退化。很多已有工作用生成器数量、数据来源数量或合成数据比例描述多来源数据，但这些指标不一定代表真正独立的信息来源。
+## 复现范围
 
-多个生成器可能来自相同基础模型、使用相似训练数据、具有相似知识边界，并在相同样本或能力区域共同犯错。因此，本项目关注生成器之间的错误相关结构，而不仅仅是来源数量。
+仓库根目录，Python 3.10+：
 
-## 核心研究问题
-
-生成器之间的错误相关性，是否比生成器数量本身更能指导稳定递归训练中的合成数据混合？
-
-## 初步研究假设
-
-以下均为待验证假设，不是实验结论：
-
-1. 多个生成器并不必然比单一生成器提供更多有效信息。
-2. 生成器之间的错误相关性可能比生成器数量更能预测跨代模型退化。
-3. 在相同生成器数量和数据预算下，错误相关性较低的来源组合可能具有更好的长期稳定性。
-4. 根据错误相关结构动态调整不同来源的数据权重，可能优于等比例混合和随机混合。
-
-## 初步方法框架
-
-```text
-Multiple Generators
--> Trusted Anchor-Set Evaluation
--> Error Correlation Matrix
--> Correlation-Aware Source Weighting
--> Recursive Retraining
--> Long-Term Stability Evaluation
+```bash
+python scripts/verify_package.py
+python scripts/show_frozen_table.py --table main
+python scripts/show_frozen_table.py --table control
+python scripts/show_frozen_table.py --table path
 ```
 
-初步优化形式可以写作：
+这些命令只验证文件或显示冻结数值，不训练、不推理、不下载、不重新计算科学结果。历史构造与训练实现可供审阅，但依赖未打包资产和历史布局；**本版不声称 clean end-to-end training reproduction 已就绪**。不要直接执行历史 builder 覆盖正式目录。
 
-```text
-min_w  w^T R w + lambda * CoverageLoss(w)
+完整 2×2 矩阵不是最初一次性预注册；部分扩展在先前结果曝光后冻结。四个 seed 精度有限；两个重排 realization 不代表 realization 分布；跨数据集比较同时改变 Source 等因素。不能宣称低相关总是更好、recursive collapse 已证明、mitigation 已验证或优化路径是唯一机制。
 
-subject to:
-  w_i >= 0
-  sum_i w_i = 1
-```
+## 权利与引用
 
-其中 `R` 是生成器错误相关矩阵，`w` 是不同生成来源的混合权重。该表达式只是 preliminary formulation，不是最终算法。
-
-## 当前进度清单
-
-- [x] Initial literature mapping
-- [x] Research problem formulation
-- [x] Preliminary hypothesis design
-- [x] Initial evaluation protocol
-- [ ] Gaussian mixture simulation
-- [ ] Multi-generator construction
-- [ ] Correlation-aware mixing implementation
-- [ ] Text classification experiments
-- [ ] Ablation studies
-- [ ] Final empirical conclusions
-
-## 计划实验
-
-1. 可控高斯混合实验
-   - 控制生成器数量、单生成器错误率、生成器错误相关性、合成数据比例、头部和长尾比例、递归训练代数和随机种子。
-2. 真实文本分类实验
-   - 候选数据集：IMDb、SST-2、AG News。
-   - 候选生成器构造方式：不同模型架构、不同训练数据子集、不同随机种子、不同训练检查点、不同提示或解码策略。
-
-当前没有正式实验结果。
-
-## 评价维度
-
-计划评价 Accuracy / Macro-F1、每代性能变化、跨代退化斜率、生成器错误相关性、共同错误率、长尾 Recall、类别或语义簇覆盖、输出熵、分布漂移、错误遗传与放大、计算与数据成本。
-
-## 仓库结构
-
-请见英文 README 的 Repository Structure 部分。
-
-## 复现原则
-
-后续实验必须固定随机种子、保存配置、记录环境、保留可复现命令，并清楚区分研究假设和实验结果。
-
-## 限制说明
-
-本仓库目前处于研究规划和早期设计阶段，不包含已经验证的实验结论，不包含生产级代码，也不声称方法已经优于现有基线。
+没有新增统一开源许可证。第三方数据和模型保持原权利；见 [Rights Notice](RIGHTS_NOTICE.md)、[Third-Party Notices](THIRD_PARTY_NOTICES.md)。论文正文、PDF、Overleaf、权重、原始数据与私人记录不在公开包中。正式引用信息待确认后提供。

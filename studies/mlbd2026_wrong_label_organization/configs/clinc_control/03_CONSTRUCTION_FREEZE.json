@@ -1,0 +1,22 @@
+{
+  "freeze_utc": "2026-09-20T10:38:48.450979+00:00",
+  "seed_payload": {
+    "project": "paper2_correlation_aware_recursive_training",
+    "real_sha256": "92e01ac176fd27111754bbe322296e588a4b6c40d6977ff0d61f9962f5e48cdc",
+    "manipulation_contract_sha256": "8384629324ad2646e22dfb0d6a82b9dc2dc8ec5ad28ef983a664d1da29dbd62f",
+    "literal": "CONCENTRATION_MATCHED_DIRECTIONAL_IDENTITY_CONTROL_V1"
+  },
+  "seed_digest": "a258aa9d5be91edbea654075fbf454846ebdf6928830e17a0a1a02580ba6127e",
+  "seed": 11698287624923455195,
+  "canonicalization": "UTF8 ensure_ascii=True sort_keys=True separators comma/colon no newline",
+  "mapping": "first 8 digest bytes unsigned big-endian; no modulus",
+  "algorithm": {
+    "path": "reports/research/submission_mlbd2026/mlbd2026_diagnostic_control_protocol_freeze_v1_20260920T103428Z/CONSTRUCTION_PREFREEZE.md",
+    "sha256": "ae283f943d641e6b3cafaa0d8bc84bf884287685683633232c2c3318b8485514",
+    "bytes": 2437
+  },
+  "implementation_sha256": "786e50d1c35e5cadb502f913ab9eb68b160815d0ee2a4138aef56208d9d8a3c4",
+  "eligible_set_sha256": "1d952b938b9419a9e3dd9fc1c8f923de39f7da5574480e4dc7e90fd1ccd408d7",
+  "realizations": 1,
+  "outcome_inputs": []
+}

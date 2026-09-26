@@ -1,0 +1,474 @@
+{
+  "stage": "MLBD2026_OPTIMIZATION_PATH_INTERACTION_PROTOCOL_AND_PI0_REUSE_READINESS_V1",
+  "transport_contract": {
+    "path": "reports/research/submission_mlbd2026/mlbd2026_clinc150_xlnet_concentration_matched_control_protocol_feasibility_readiness_v1_20260922T134659Z/FROZEN_TRANSPORT_CONTRACT.json",
+    "sha256": "3bcf2289b29643330e2cf8d91c4596261382b0ef6d5204ab4ed0fe4923b0173a",
+    "bytes": 13771,
+    "read_mode": "JSON/text/static metadata"
+  },
+  "model": {
+    "schema": "XLNET_IDENTITY_AND_TOKENIZER_CONTRACT_V1",
+    "status": "FROZEN",
+    "repository": "xlnet/xlnet-base-cased",
+    "revision": "ceaa69c7bc5e512b5007106a7ccbb7daf24b2c79",
+    "revision_verification": "Official model API sha matches; pinned config/tokenizer successfully retrieved; see PUBLIC_ASSET_PROVENANCE.json",
+    "model_class": "transformers.XLNetForSequenceClassification",
+    "num_labels": 150,
+    "upstream_config": {
+      "path": "small_assets/xlnet_config.json",
+      "sha256": "0fde1d9aa1bfabdd3af475ef5811a093ead6b13f443becc06f426a8dba214531"
+    },
+    "model_config": {
+      "d_model": 768,
+      "n_layer": 12,
+      "n_head": 12,
+      "d_head": 64,
+      "d_inner": 3072,
+      "vocab_size": 32000,
+      "attn_type": "bi",
+      "bi_data": false,
+      "same_length": false,
+      "clamp_len": -1,
+      "untie_r": true,
+      "ff_activation": "gelu",
+      "layer_norm_eps": 1e-12,
+      "initializer_range": 0.02,
+      "dropout": 0.1,
+      "attention_dropout": "0.1 via same config.dropout; no separate attention-dropout knob",
+      "summary_type": "last",
+      "summary_use_proj": true,
+      "summary_proj_to_labels": false,
+      "summary_activation": "tanh",
+      "summary_first_dropout": 0,
+      "summary_last_dropout": 0.1,
+      "mem_len": 0,
+      "reuse_len": 0,
+      "use_mems_train": false,
+      "use_mems_eval": false,
+      "pad_token_id": 5,
+      "bos_token_id": 1,
+      "eos_token_id": 2,
+      "problem_type": "single_label_classification",
+      "return_dict": true,
+      "output_attentions": false,
+      "output_hidden_states": false,
+      "chunk_size_feed_forward": 0
+    },
+    "head": {
+      "summary_linear": [
+        768,
+        768
+      ],
+      "logits_linear": [
+        768,
+        150
+      ],
+      "fresh_parameter_names": [
+        "sequence_summary.summary.weight",
+        "sequence_summary.summary.bias",
+        "logits_proj.weight",
+        "logits_proj.bias"
+      ],
+      "initializer": "After backbone load, reset CPU torch seed to s; initialize summary.weight normal(0,.02), summary.bias zero, then logits_proj.weight normal(0,.02), logits_proj.bias zero; exact order fixed. No truncated-normal claim."
+    },
+    "tokenizer": {
+      "repository": "xlnet/xlnet-base-cased",
+      "revision": "ceaa69c7bc5e512b5007106a7ccbb7daf24b2c79",
+      "asset": "small_assets/xlnet_tokenizer.json",
+      "sha256": "53fa8c1e443eda9cfc88c906d9181256e582638dbd5ac3ba00d73901ef04f107",
+      "implementation": "tokenizers.Tokenizer.from_file, version0.22.2; canonical Rust backend, no on-the-fly SentencePiece conversion",
+      "max_length": 128,
+      "padding": "max_length",
+      "padding_side": "left",
+      "truncation_side": "right",
+      "truncation_strategy": "longest_first on single sequence only",
+      "add_special_tokens": true,
+      "single_sequence_layout": "left pads + content + <sep> + <cls>; no BOS/EOS inserted",
+      "pad_token": "<pad>",
+      "pad_token_id": 5,
+      "sep_token": "<sep>",
+      "sep_token_id": 4,
+      "cls_token": "<cls>",
+      "cls_token_id": 3,
+      "unk_token_id": 0,
+      "token_type_ids": {
+        "content": 0,
+        "sep": 0,
+        "cls": 2,
+        "pad": 3
+      },
+      "attention_mask": "1 for content/SEP/CLS, 0 for left pad; do not pass input_mask simultaneously",
+      "normalization": "Exact normalizer/pre_tokenizer/post_processor stored in hashed tokenizer.json; do not reconstruct from assumptions; no added tokens or lowercasing override",
+      "training_batch_shape": "[B,128] int64 input_ids/token_type_ids/attention_mask",
+      "clean_length_audit": {
+        "status": "PASS",
+        "N": 3000,
+        "classes": 150,
+        "support_per_class": 20,
+        "tokenizers_version": "0.22.2",
+        "data_path": "reports\\research\\student_consequence\\independent_manipulation_realization_remote_asset_retrieval_protocol_v1_20260916T020446Z\\retrieved_assets\\05.json",
+        "data_sha256": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0",
+        "mapping_sha256": "ba009d6d503d682513a358bb767c612a45a084ebe2ad9300f046a5e16344e717",
+        "special_tokens": {
+          "<pad>": 5,
+          "<sep>": 4,
+          "<cls>": 3,
+          "<unk>": 0
+        },
+        "lengths_include_sep_cls": true,
+        "quantile_method": "nearest_rank sorted_lengths[ceil(p*N)-1]",
+        "min": 3,
+        "median": 11,
+        "p95": 20,
+        "p99": 27,
+        "max": 35,
+        "max_length": 128,
+        "truncated_count": 0,
+        "truncated_fraction": 0,
+        "padding_side": "left",
+        "truncation_side": "right",
+        "pad_token_type_id": 3,
+        "encoded_dev_digest": "9997e29632d8237142ee5cd36dfbf36b79f686197e49dabf844100ea9ba2f6bb",
+        "nll_threshold_formula": "-log(0.9+0.1/150)",
+        "nll_threshold_float64": 0.1046200491301025,
+        "model_imported": false,
+        "torch_imported": false,
+        "training": 0,
+        "inference": 0,
+        "gpu": 0,
+        "test_text_used_for_tokenization": false
+      },
+      "test_length_selection_forbidden": true
+    },
+    "libraries": {
+      "transformers": "4.56.1",
+      "tokenizers": "0.22.2",
+      "torch": "2.8.0",
+      "numpy": "2.1.3",
+      "python": "3.11.x patch/wheel/build hashes to bind in readiness before model construction",
+      "execution_environment_verified": false
+    },
+    "no_model_loaded": true,
+    "no_weight_downloaded": true
+  },
+  "recipe": {
+    "schema": "XLNET_CLEAN_RECIPE_V1",
+    "status": "FROZEN",
+    "model_contract": "02_XLNET_IDENTITY_AND_TOKENIZER_CONTRACT.json",
+    "data_contract": "03_CLEAN_ADEQUACY_TARGET_AND_GATE.json",
+    "seeds": [
+      167174636,
+      1852328752,
+      1231418446,
+      1461753708
+    ],
+    "batch_size": 32,
+    "gradient_accumulation_steps": 1,
+    "batches_per_epoch": 94,
+    "last_batch_size": 24,
+    "drop_last": false,
+    "optimizer": {
+      "class": "torch.optim.AdamW",
+      "lr": 5e-05,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-06,
+      "weight_decay": 0.01,
+      "amsgrad": false,
+      "foreach": false,
+      "fused": false,
+      "capturable": false,
+      "differentiable": false,
+      "maximize": false,
+      "bias_correction": true,
+      "layerwise_lr_decay": 1,
+      "groups": 2,
+      "group_order": [
+        "decay",
+        "no_decay"
+      ],
+      "parameter_order": "lexicographic full parameter name inside each group",
+      "decay_rule": "Include XLNet r_r_bias/r_s_bias/r_w_bias explicitly; exclude parameters owned by nn.LayerNorm and other parameters whose leaf name is bias; decay all remaining trainable parameters. Each parameter exactly once. Do not exclude solely by tensor rank.",
+      "no_decay_weight_decay": 0
+    },
+    "gradient_clipping": {
+      "global_norm": 1,
+      "norm_type": 2,
+      "error_if_nonfinite": true,
+      "foreach": false
+    },
+    "precision": {
+      "parameters": "FP32",
+      "forward": "FP32",
+      "loss": "FP32",
+      "optimizer_states": "FP32",
+      "AMP": false,
+      "grad_scaler": false,
+      "TF32": false
+    },
+    "scheduler": {
+      "type": "explicit linear warmup then linear decay",
+      "warmup_fraction": 0.1,
+      "warmup_rounding": "floor(total_optimizer_steps/10)",
+      "step_index": "s=number of optimizer steps completed before current step, starting0",
+      "lr_formula": "lr(s)=5e-5*(s/W if s<W else (T-s)/(T-W)); s in [0,T]; set each group LR before optimizer.step; after final step record lr(T)=0",
+      "first_optimizer_step_lr": 0,
+      "optimizer_steps_include_first_zero_lr": true
+    },
+    "training": {
+      "all_backbone_parameters_trainable": true,
+      "head_trainable": true,
+      "model_train_mode": true,
+      "no_labels_forward": true,
+      "no_memory": true,
+      "external_soft_target_loss": true,
+      "zero_grad_set_to_none": true,
+      "gradient_checkpointing": false,
+      "torch_compile": false,
+      "distributed": false,
+      "devices": 1
+    },
+    "dataloader": {
+      "workers": 0,
+      "shuffle": false,
+      "pin_memory": false,
+      "order_authority": "06_SEED_AND_INITIAL_STATE_CONTRACT.json",
+      "batching": "consecutive32 IDs, final24, each epoch uses all3000 once"
+    },
+    "determinism": {
+      "torch_use_deterministic_algorithms": true,
+      "warn_only": false,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "PYTHONHASHSEED": "decimal seed before process launch",
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1
+    },
+    "checkpoint_rule": "final epoch only, no averaging or best-epoch choice",
+    "evaluation": {
+      "batch_size": 32,
+      "order": "canonical CLEAN dev order",
+      "mode": "eval",
+      "final_only": true,
+      "no_memory": true,
+      "test_inference": false
+    },
+    "automatic_retry": false,
+    "recipe_id": "XLNET_CLEAN_R0",
+    "epochs": 20,
+    "total_optimizer_steps": 1880,
+    "warmup_steps": 188
+  },
+  "consequence_overrides": {
+    "target": "existing CONTROL raw q, never CLEAN truth one-hot",
+    "loss": "mean[-sum((.9*q_raw+.1/150)*log_softmax(logits))]",
+    "evaluation": "final-only canonical official test4500; batch32 (XLNet REAL), saved FP32 logits, independent FP64 metrics; local129/complement4371",
+    "adequacy_gate": "NOT_APPLIED_TO_CONTROL_CONSEQUENCE; technical completion only"
+  },
+  "effective_eval": {
+    "batch_size": 32,
+    "final_only": true,
+    "official_test_count": 4500,
+    "local_count": 129,
+    "complement_count": 4371,
+    "raw_logits_dtype": "float32",
+    "metrics_dtype": "float64",
+    "checkpoint": "after1880 final-only"
+  },
+  "endpoint_batch_override": "Historical endpoint meanings and membership unchanged; RoBERTa evaluation batch128 is NOT inherited; XLNet batch32 retained.",
+  "assets": {
+    "REAL": {
+      "role": "REAL",
+      "project_relative_path": "reports/research/student_consequence/real_clinc150_minimal_student_consequence_manipulation_preflight_v1_resume_execution_20260907T085125Z/supervision/CONDITION_REAL_SUPERVISION.npz",
+      "sha256": "92e01ac176fd27111754bbe322296e588a4b6c40d6977ff0d61f9962f5e48cdc",
+      "bytes": 19776
+    },
+    "FROZEN129": {
+      "role": "FROZEN129",
+      "project_relative_path": "reports/research/student_consequence/real_clinc150_minimal_student_consequence_3fit_contract_readiness_v1_20260907T112513Z/SOURCE_SHARED_DIRECTION_TEST_SUBSET.csv.gz",
+      "sha256": "9632d04a0f3b4000088073547ef45e33022ce69b698bf331ed4ceecb637c1fbf",
+      "bytes": 2002
+    },
+    "DATASET": {
+      "role": "DATASET",
+      "project_relative_path": "reports/research/student_consequence/independent_manipulation_realization_remote_asset_retrieval_protocol_v1_20260916T020446Z/retrieved_assets/05.json",
+      "sha256": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0",
+      "bytes": 2495390
+    },
+    "LABEL_MAP": {
+      "role": "LABEL_MAP",
+      "project_relative_path": "reports/research/student_consequence/independent_manipulation_realization_remote_asset_retrieval_protocol_v1_20260916T020446Z/retrieved_assets/06.json",
+      "sha256": "ba009d6d503d682513a358bb767c612a45a084ebe2ad9300f046a5e16344e717",
+      "bytes": 9045
+    },
+    "CONTROL": {
+      "bytes": 19778,
+      "project_relative_path": "reports/research/submission_mlbd2026/mlbd2026_diagnostic_control_protocol_freeze_v1_20260920T103428Z/CONTROL_SUPERVISION.npz",
+      "role": "CONTROL",
+      "sha256": "7926f356964b5d190db314d0a139d0541d95a2aa9f2aec5c9d58fb0a58f86501"
+    }
+  },
+  "initial_index": {
+    "path": "reports/research/student_consequence/second_student_architecture_clean_adequacy_device_handling_remediation_implementation_v1_20260919T153130Z/execution_package_v5/10_PER_SEED_INITIAL_STATE_INDEX.json",
+    "sha256": "0b9ca9b240cc9f3c4db71c4e000d474d926b7819783b002af562aec06142af3b",
+    "bytes": 6826,
+    "read_mode": "JSON/text/static metadata"
+  },
+  "original_seed_contract": {
+    "path": "reports/research/student_consequence/second_student_architecture_clean_adequacy_device_handling_remediation_implementation_v1_20260919T153130Z/execution_package_v5/package/06_SEED_AND_INITIAL_STATE_CONTRACT.json",
+    "sha256": "b9f5bbbeee53e5b32a5b2d1fa630213af174ba7335d3eea5bdad2c2f178ed57c",
+    "bytes": 2561,
+    "read_mode": "JSON/text/static metadata"
+  },
+  "runtime": {
+    "required_python": "3.11.13 (main, Jun  5 2025, 13:12:00) [GCC 11.2.0]",
+    "required_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.56.1",
+      "tokenizers": "0.22.2",
+      "numpy": "2.1.3",
+      "sentencepiece": "0.2.2",
+      "safetensors": "0.8.0"
+    },
+    "required_cuda_build": "12.8",
+    "required_nvidia_packages": {
+      "nvidia-cusparselt-cu12": "0.7.1",
+      "nvidia-nvtx-cu12": "12.8.90",
+      "nvidia-nvjitlink-cu12": "12.8.93",
+      "nvidia-nccl-cu12": "2.27.3",
+      "nvidia-cusparse-cu12": "12.5.8.93",
+      "nvidia-cusolver-cu12": "11.7.3.90",
+      "nvidia-curand-cu12": "10.3.9.90",
+      "nvidia-cufile-cu12": "1.13.1.3",
+      "nvidia-cufft-cu12": "11.3.3.83",
+      "nvidia-cudnn-cu12": "9.10.2.21",
+      "nvidia-cuda-runtime-cu12": "12.8.90",
+      "nvidia-cuda-nvrtc-cu12": "12.8.93",
+      "nvidia-cuda-cupti-cu12": "12.8.90",
+      "nvidia-cublas-cu12": "12.8.4.1"
+    },
+    "linux_wheel_plan": {
+      "path": "reports/research/student_consequence/second_student_architecture_clean_adequacy_device_handling_remediation_implementation_v1_20260919T153130Z/execution_package_v5/LINUX_VERIFIED_WHEEL_PLAN.json",
+      "sha256": "62197c9d3c3e1db06085b60c343dbb3d3f4819088ff221d6758ecaaa6b8f0eda",
+      "bytes": 24390,
+      "read_mode": "JSON/text/static metadata"
+    },
+    "installed_build_binding": "Before any fresh fit bind actual interpreter SHA256, package RECORD/binary/source hashes and torch CUDA/cuDNN build; a wheel plan alone is insufficient. Freeze once for all16 cells.",
+    "hardware": "Record and keep GPU model/compute capability, driver, device count consistent across fresh16. Historical physical device UUID and hostname equality are NOT required.",
+    "determinism": {
+      "torch_use_deterministic_algorithms": true,
+      "warn_only": false,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "PYTHONHASHSEED": "decimal seed before process launch",
+      "torch_num_threads": 1,
+      "torch_num_interop_threads": 1
+    },
+    "drift_policy": "FAIL_CLOSED before next fit; no automatic environment substitution or retry",
+    "currently_verified": false,
+    "scope": "runtime binding belongs to next package/preflight stage"
+  },
+  "common_core": {
+    "path": "reports/research/student_consequence/second_student_architecture_clean_adequacy_device_handling_remediation_implementation_v1_20260919T153130Z/execution_package_v5/readiness_core.py",
+    "sha256": "edebb106d924bac78c15fc158eae05d8d63b13332bb5fd3d6a077a94047ffd0c",
+    "bytes": 9072,
+    "read_mode": "JSON/text/static metadata"
+  },
+  "worker_training_math_sha256": "2434c6e6b1a8c770b1b521333420eac08e071bb1d4cc3dfcd29265fd8d4bb4ba",
+  "scope_note": "CLEAN template evaluation/target are overridden; use REAL/CONTROL raw targets, test4500 batch32, no CLEAN adequacy gate",
+  "fresh16_fit_order": [
+    {
+      "seed": 167174636,
+      "order": "PI0",
+      "condition": "REAL"
+    },
+    {
+      "seed": 167174636,
+      "order": "PI0",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 167174636,
+      "order": "PI1",
+      "condition": "REAL"
+    },
+    {
+      "seed": 167174636,
+      "order": "PI1",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1852328752,
+      "order": "PI0",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1852328752,
+      "order": "PI0",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1852328752,
+      "order": "PI1",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1852328752,
+      "order": "PI1",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1231418446,
+      "order": "PI0",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1231418446,
+      "order": "PI0",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1231418446,
+      "order": "PI1",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1231418446,
+      "order": "PI1",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1461753708,
+      "order": "PI0",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1461753708,
+      "order": "PI0",
+      "condition": "CONTROL"
+    },
+    {
+      "seed": 1461753708,
+      "order": "PI1",
+      "condition": "REAL"
+    },
+    {
+      "seed": 1461753708,
+      "order": "PI1",
+      "condition": "CONTROL"
+    }
+  ],
+  "proposed_new_fit_count": 16,
+  "total_optimizer_steps": 30080,
+  "execution_authorized": false
+}

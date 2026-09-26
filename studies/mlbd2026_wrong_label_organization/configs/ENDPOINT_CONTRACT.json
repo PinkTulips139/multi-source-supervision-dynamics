@@ -1,0 +1,47 @@
+{
+  "Primary": "mean_test4500 NLL_REAL - mean_test4500 NLL_CONTROL",
+  "Secondary": "mean_frozen129 [p_REAL(shared_wrong)-p_CONTROL(shared_wrong)]",
+  "LocalNLL": "mean_frozen129 [NLL_REAL-NLL_CONTROL]",
+  "Complement": "mean_complement4371 [NLL_REAL-NLL_CONTROL]",
+  "positive_nll": "REAL worse",
+  "positive_secondary": "REAL allocates more to predefined shared-wrong label",
+  "main_diagnostic_estimand": "LocalNLL REAL minus CONTROL conditional on this one exact concentration-matched control, learner, dataset and four training seeds",
+  "secondary_not_interchangeable_with_localnll": true,
+  "global_positive_gate": false,
+  "frozen129": {
+    "path": "reports/research/student_consequence/real_clinc150_minimal_student_consequence_3fit_contract_readiness_v1_20260907T112513Z/SOURCE_SHARED_DIRECTION_TEST_SUBSET.csv.gz",
+    "sha256": "9632d04a0f3b4000088073547ef45e33022ce69b698bf331ed4ceecb637c1fbf",
+    "bytes": 2002
+  },
+  "complement_count": 4371,
+  "test_contract": {
+    "identity": "CLINC150_OFFICIAL_TEST_4500",
+    "count": 4500,
+    "student_training_exposure": false,
+    "uses": [
+      "one final true-label evaluation per fit"
+    ],
+    "metrics": [
+      "true-label log loss",
+      "accuracy",
+      "error count"
+    ],
+    "limitation": "Held out from Student training, but previously used for Source evaluation and formal Source Set selection; it is not a project-wide never-touched test.",
+    "dataset": {
+      "path": "EXTERNAL_ASSET/data_full.json",
+      "sha256": "36923c3705a59e08fe9c3883d8bc2dd966ef93e22cb78ac41171782a698d56e0"
+    },
+    "identity_canonical_sha256": "91ebc76392d0ec372dd35569387fe7bd1b2fe0b60093c74fa5793a1f8b3ac93f",
+    "identity_digest_encoding": "JSON list in raw test order; keys example_id,text,truth_id; ensure_ascii=False,sort_keys=True,separators comma/colon,UTF8",
+    "example_ids": "clinc150:test:000000..004499 in exact frozen raw test order",
+    "evaluation_batch_size": 128,
+    "logits_storage": "FP32",
+    "metric_calculation": "FP64 stable log_softmax raw true-label CE, accuracy and error count; no smoothing on evaluation labels",
+    "applies_to": [
+      "REAL",
+      "DIRECTION_SCRAMBLED"
+    ],
+    "CLEAN_test_evaluation": "NOT_REQUIRED_NOT_AVAILABLE_NOT_AUTHORIZED_BY_THIS_STAGE"
+  },
+  "no_new_subset": true
+}

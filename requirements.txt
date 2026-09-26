@@ -1,2 +1,0 @@
-﻿# No formal experiment dependencies are required yet.
-# Add pinned dependencies when executable experiments are introduced.

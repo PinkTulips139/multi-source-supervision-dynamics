@@ -1,0 +1,10 @@
+{
+  "seeds": [
+    167174636,
+    1852328752,
+    1231418446,
+    1461753708
+  ],
+  "source": "CLINC_CONTRACT.FINAL_CONFIRMATORY_SEEDS; BANK_PACKAGE.student.seeds",
+  "interpretation": "ordered symbols, not four independent datasets"
+}

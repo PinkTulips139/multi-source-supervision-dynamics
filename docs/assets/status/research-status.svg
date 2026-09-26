@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="86" viewBox="0 0 1040 86" role="img" aria-labelledby="title desc">
+  <title id="title">Research status</title>
+  <desc id="desc">Main experiments, concentration controls, static diagnostics and path experiment complete. Manuscript under author review. Recursive extension is future work.</desc>
+  <rect width="1040" height="86" rx="10" fill="#f4f6f8"/>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#243746">
+    <g fill="#e2eeea"><rect x="14" y="14" width="238" height="27" rx="5"/><rect x="266" y="14" width="246" height="27" rx="5"/><rect x="526" y="14" width="243" height="27" rx="5"/><rect x="783" y="14" width="243" height="27" rx="5"/></g>
+    <text x="27" y="32">Main experiments: complete</text><text x="279" y="32">Concentration controls: complete</text><text x="539" y="32">Static diagnostics: complete</text><text x="796" y="32">Path experiment: complete</text>
+    <text x="27" y="65">Manuscript: under author review</text><text x="539" y="65" font-weight="700">Recursive extension: FUTURE WORK</text>
+  </g>
+</svg>

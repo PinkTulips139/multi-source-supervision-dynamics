@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "cell_count": 16,
+  "binding_hash": "acac4e61d3775d9ee9132ee11f3831b9f50ddb3fb39383a6fb4adf69dc4010f5",
+  "order_matrix_sha256": "796f50bdbf1e2cc90fc1e6f9f2b2db67e330a9045b9274aa466c2d0a1082add7",
+  "runtime_receipt_sha256": "c97a0fad799009f2eb0d9c3f6eb42ab6e96ee64428e15ae34655138c597bebca",
+  "package_manifest_sha256": "0cad2ac5e33e64f63a9b5262f6a368a88792dbcc136d0ef9adf5ecd430457b00",
+  "all_outputs_absent": true,
+  "no_historical_pi0_reuse": true
+}

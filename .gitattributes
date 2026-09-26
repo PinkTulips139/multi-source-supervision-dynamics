@@ -1,0 +1,11 @@
+# Imported evidence is hash-bound: retain original bytes across platforms.
+studies/mlbd2026_wrong_label_organization/** -text
+*.md text eol=lf
+scripts/*.py text eol=lf
+tests/*.py text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+*.svg text eol=lf
+studies/mlbd2026_wrong_label_organization/evidence/** -text
+# CRLF in byte-preserved artifacts is a line ending, not trailing content.
+studies/mlbd2026_wrong_label_organization/** whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

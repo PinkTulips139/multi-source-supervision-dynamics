@@ -1,0 +1,62 @@
+{
+  "schema": "BANKING77_FROZEN_STUDENT_INPUT_PACKAGE_V1",
+  "status": "FROZEN_READY",
+  "student_supervision": {
+    "rows": 3066,
+    "membership_manifest_path": "reports/research/submission_mlbd2026/mlbd2026_banking77_asset_and_split_readiness_v1_20260920T144526Z/03_SPLIT_MEMBERSHIP_MANIFEST.csv",
+    "full_manifest_sha256": "3d198252680bac52ce849671775856f21e764dd4e1d71b02a668c4eb09a14c10",
+    "ordered_id_truth_semantic_sha256": "9a8949dddaa50186152a4573adbe21460074c40996bada23d9c4f3ea24ffec91"
+  },
+  "targets": {
+    "REAL": {
+      "path": "REAL_TARGETS.npz",
+      "file_sha256": "efc662a9a5c1ba1698e5a8ee3f08ca2bec4a4d36c1bbe60a23a557ddda784829",
+      "semantic_sha256": "e926bd7708d3c4baa1a4e9b90d5b5d3e4f593f06540a75bfd7209221d03f22f5"
+    },
+    "SCRAMBLED_R1": {
+      "path": "DIRECTION_SCRAMBLED_R1_TARGETS.npz",
+      "file_sha256": "1ad79552c92cc4bf4cb88988d2e980a99dc1a2b1797d3e9367e0c54bbfe4d49e",
+      "semantic_sha256": "a542d4579d8e34f5f120099daf54c62c3170d15c282ca0bf7a6339b2d9fca7b6",
+      "realization_seed": "2589517172764919847"
+    },
+    "SCRAMBLED_R2": {
+      "path": "DIRECTION_SCRAMBLED_R2_TARGETS.npz",
+      "file_sha256": "da64f61967d46cd08e8866f2b8c44ddd0da66acc9ffe5270c27e04544d2f14e3",
+      "semantic_sha256": "778f611b4604d55c9c11cc8d7a58b151cf641d55eae91b67340e314f608e70c6",
+      "realization_seed": "3731049962840942663"
+    }
+  },
+  "evaluation": {
+    "official_test_rows": 3080,
+    "official_test_membership_sha256": "bfc0079e2d6f61df1f5d06945a8fb5c51752fe5f9c3c68e3d3bb85707b1e85ef",
+    "local_subset_rows": 304,
+    "local_subset_semantic_sha256": "99eee351c028201b80f68635cc16cfdb2b7cfb5bb082f325afb646a82ef538c1",
+    "complement_rows": 2776,
+    "complement_semantic_sha256": "8781c77284d4a6bd858c4f65b66f8d122800482a8e16503c764c0e3301e94153",
+    "local_subset_authority": "reports/research/submission_mlbd2026/mlbd2026_banking77_local_subset_and_target_construction_freeze_v1_20260921T041141Z/02_LOCAL_SHARED_FAILURE_MEMBERSHIP.csv",
+    "complement_authority": "reports/research/submission_mlbd2026/mlbd2026_banking77_local_subset_and_target_construction_freeze_v1_20260921T041141Z/03_COMPLEMENT_MEMBERSHIP.csv"
+  },
+  "student": {
+    "model_id": "FacebookAI/roberta-base",
+    "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
+    "initialization": "pristine pretrained backbone plus fresh 77-class head for every fit",
+    "seeds": [167174636, 1852328752, 1231418446, 1461753708],
+    "recipe": {
+      "epochs": 35,
+      "batch": 50,
+      "learning_rate": 0.00005,
+      "precision": "FP32",
+      "optimizer_steps": 2170,
+      "warmup_steps": 217,
+      "checkpoint": "FINAL_EPOCH_35_ONLY"
+    }
+  },
+  "endpoints": ["Primary", "Secondary", "LocalNLL", "Complement"],
+  "formal_matrix": {
+    "seeds": 4,
+    "conditions": ["REAL", "SCRAMBLED_R1", "SCRAMBLED_R2"],
+    "fits": 12
+  },
+  "formal_student_fits_completed": 0,
+  "outcome_accessed": false
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="246" viewBox="0 0 1040 246" role="img" aria-labelledby="title desc">
+  <title id="title">Multi-source supervision research map</title>
+  <desc id="desc">Current single-generation study: controlled wrong-label assignment, Student consequences, bounded mechanism analysis, optimization-path sensitivity. Recursive propagation and possible mitigation remain future work.</desc>
+  <rect width="1040" height="246" rx="14" fill="#f4f6f8"/>
+  <g font-family="Arial, sans-serif" fill="#243746">
+    <text x="28" y="34" font-size="19" font-weight="700">From controlled supervision to learning dynamics</text>
+    <text x="28" y="59" font-size="13">Current evidence: single generation · controlled empirical study · mediator unidentified</text>
+    <g fill="#e4edf2" stroke="#8599a6" stroke-width="1.2">
+      <rect x="28" y="87" width="214" height="78" rx="8"/>
+      <rect x="281" y="87" width="214" height="78" rx="8"/>
+      <rect x="534" y="87" width="214" height="78" rx="8"/>
+      <rect x="787" y="87" width="225" height="78" rx="8"/>
+    </g>
+    <g text-anchor="middle" font-size="15">
+      <text x="135" y="119">Wrong-label organization</text><text x="135" y="145" font-size="12">Correctness and marginals fixed</text>
+      <text x="388" y="119">Student consequences</text><text x="388" y="145" font-size="12">Local / global; transfer / NLL</text>
+      <text x="641" y="119">Bounded mechanism analysis</text><text x="641" y="145" font-size="12">CONTROL + static diagnostics</text>
+      <text x="899" y="119">Optimization-path sensitivity</text><text x="899" y="145" font-size="12">CLINC150 × XLNet only</text>
+    </g>
+    <g font-size="24" text-anchor="middle" fill="#617e90"><text x="262" y="134">→</text><text x="515" y="134">→</text><text x="767" y="134">→</text></g>
+    <rect x="28" y="185" width="984" height="40" rx="7" fill="#f0eee7" stroke="#9b947f" stroke-dasharray="5 4"/>
+    <text x="47" y="210" font-size="14">FUTURE WORK  →  Recursive / multi-generation training  →  Error propagation  →  Possible mitigation / Source mixing</text>
+  </g>
+</svg>

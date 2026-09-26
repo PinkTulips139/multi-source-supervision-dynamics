@@ -1,142 +1,143 @@
-﻿# Correlation-Aware Recursive Training
+# Multi-Source Supervision Dynamics
 
-**Research in Progress**
+Controlled studies of how erroneous multi-source supervision is organized, transferred, and propagated through learning systems.
 
-This repository documents an ongoing research project. The hypotheses and proposed method have not yet been empirically validated.
+[中文说明](README_zh.md) · [Current study](studies/mlbd2026_wrong_label_organization/README.md) · [Evidence routes](docs/EVIDENCE_ROUTES.md) · [Reproduction](docs/REPRODUCIBILITY.md)
 
-## One-line Summary
+**Current study:** *Wrong-Label Organization in Multi-Source Supervision: Controlled Effects and Optimization-Path Sensitivity*.
+This is a controlled empirical study. Current evidence is **single-generation**; propagation across generations is future work.
 
-This project studies whether error correlation among multiple synthetic data generators can help design more stable recursive training workflows.
+![Main experiments, concentration controls, static diagnostics and path experiment complete; recursive extension is future work](docs/assets/status/research-status.svg)
 
-## Project Status
+Main experiments, concentration-matched controls, static diagnostics and the controlled optimization-path experiment are complete. The manuscript is under author review (author-reported status); no acceptance or publication is claimed. **Clean end-to-end training reproduction is not yet packaged.**
 
-Current status:
+**Finding:** Wrong-label organization can change Student behavior under the tested controls. The effects are conditional, the path mediator is unresolved, and recursive propagation has not been tested.
 
-- Initial literature mapping has been completed.
-- The research area has been organized into a preliminary map.
-- Initial research questions and working hypotheses have been formulated.
-- A preliminary experimental framework, baselines, and evaluation protocol have been drafted.
-- Formal experiments have not yet been completed.
-- The core hypotheses have not yet been validated.
-- No paper-level empirical conclusion is claimed in this repository.
+## Start Here
 
-## Motivation
+| Goal | Recommended entrypoints |
+| --- | --- |
+| Understand the research question | Research Question below → [terminology and endpoints](docs/TERMINOLOGY.md) |
+| Inspect current results | Results Snapshot below → [study results](studies/mlbd2026_wrong_label_organization/README.md) |
+| Reproduce target construction | [construction route and missing inputs](docs/REPRODUCIBILITY.md#target-construction) → [implementation map](studies/mlbd2026_wrong_label_organization/scripts/reference/README.md) |
+| Reproduce Student comparisons | [reproduction status](docs/REPRODUCIBILITY.md#student-comparisons) → [frozen configs](studies/mlbd2026_wrong_label_organization/configs/README.md) |
+| Inspect mechanism diagnostics | [diagnostic evidence route](docs/EVIDENCE_ROUTES.md#mechanism-diagnostics) |
+| Understand claim boundaries | [limitations](docs/KNOWN_LIMITATIONS.md) → [chronology](docs/EXPERIMENTAL_CHRONOLOGY.md) |
+| Follow future recursive work | [roadmap](docs/ROADMAP.md) → [recursive scope](studies/recursive_training/README.md) |
 
-Recursive training with synthetic data can amplify errors, reduce coverage, and gradually distort the data distribution. Prior work often describes synthetic data workflows using the number of data sources, the number of generators, or the synthetic data ratio. However, nominal source diversity does not necessarily imply independent information.
+Suggested reading: overview → study → evidence routes → limitations. For technical review, start with the evidence manifest and verifier before reading historical implementation snapshots.
 
-Multiple generators may share the same base model, similar training data, similar capability boundaries, or similar failure modes. If they make correlated errors on the same regions of the data space, simply mixing them equally may not prevent long-term degradation.
+## Research Question
 
-## Core Research Question
+Holding Source correctness and key marginal statistics fixed, does changing which wrong label is assigned to which input alter downstream Student behavior? Three Sources supply hard labels; a Student learns from their equally weighted aggregate soft targets. Source identity is retained for auditing, not supplied as a separate Student input.
 
-Can generator error correlation provide a more informative signal than source count alone for designing stable recursive synthetic data mixing strategies?
+## What Changes / What Stays Fixed
 
-## Preliminary Hypotheses
+| Quantity | R1 / R2 | Concentration-matched CONTROL |
+| --- | --- | --- |
+| Input IDs and text; truth labels | Preserved | Preserved |
+| Source count and equal weights | Preserved | Preserved |
+| Per-example, per-Source correctness; correct cells | Preserved | Preserved |
+| True-label target mass, q(true) | Preserved | Preserved |
+| Source × truth wrong-label marginals | Preserved | Preserved |
+| Wrong-label identity ↔ input assignment | Changed | Changed |
+| Each row's sorted raw-target probabilities | Not constrained | Preserved |
+| Support size, entropy, sum(q²), same-wrong total | Not constrained | Preserved; consequences of the above constraints |
 
-These are working hypotheses, not experimental conclusions:
+R1/R2 reorganize wrong labels within each Source × truth group. CONTROL moves **whole ordered Source-label triples** between matched rows. It tests whether concentration alone suffices to explain the observed contrasts; it cannot establish that smoothness is irrelevant or that identity is the unique mechanism. [Definitions and validators](docs/EVIDENCE_ROUTES.md#construction-and-invariants).
 
-1. Multiple generators do not necessarily provide more effective information than a single generator.
-2. Error correlation among generators may predict recursive degradation better than generator count alone.
-3. Under the same generator count and data budget, lower-correlated source combinations may lead to better long-term stability.
-4. Dynamically adjusting source weights according to error correlation structure may outperform equal mixing and random mixing.
+## At a Glance
 
-## Planned Framework
+| Scope | Verified study design |
+| --- | --- |
+| Datasets | CLINC150; BANKING77 |
+| Sources | BERT-base-uncased; RoBERTa-base; DeBERTa-v3-small |
+| Students | RoBERTa-base; XLNet-base-cased |
+| Main formal fits | 48 = 2 datasets × 2 Students × 4 seeds × REAL/R1/R2 |
+| Concentration control | Four dataset/Student settings; one frozen realization per dataset |
+| Controlled path experiment | 16 fresh fits: CLINC150 × XLNet × REAL/CONTROL × original/reversed presentation × 4 seeds |
+| Student seeds, in order | 167174636, 1852328752, 1231418446, 1461753708 |
+| Evaluation | Secondary, LocalNLL, Primary, Complement |
+| Frozen local / official test sizes | CLINC150: 129 / 4,500; BANKING77: 304 / 3,080 |
 
-```text
-Multiple Generators
--> Trusted Anchor-Set Evaluation
--> Error Correlation Matrix
--> Correlation-Aware Source Weighting
--> Recursive Retraining
--> Long-Term Stability Evaluation
+Counts exclude discovery and adequacy runs. R1 and R2 reuse REAL fits; they are not eight independent seed replications. [Evidence bindings](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json).
+
+## Main Findings
+
+- Controlled wrong-label organization can alter downstream Student behavior.
+- Specific shared-wrong transfer and true-label degradation can dissociate. Local degradation does not establish robust global degradation.
+- Concentration-matched contrasts weaken a smoothness-only explanation in three settings, with a non-unanimous CLINC150 × XLNet result.
+- The tested static diagnostics provide no unified mechanism explanation.
+- The CLINC150 × XLNet intervention supports setting-level optimization-path sensitivity. The mediator remains unidentified.
+
+These [bounded findings](docs/EVIDENCE_ROUTES.md) do not validate mitigation, recursive collapse, a unique mechanism, or the claim that lower correlation is always better.
+
+## Study Map
+
+![Current controlled study, consequence analysis, bounded mechanism analysis and optimization-path sensitivity; recursive training and mitigation remain future work](docs/assets/diagrams/research-map.svg)
+
+## Reproduction
+
+From the repository root, with Python 3.10 or newer:
+
+```bash
+python scripts/verify_package.py
+python scripts/show_frozen_table.py --table main
+python scripts/show_frozen_table.py --table control
+python scripts/show_frozen_table.py --table path
 ```
 
-A preliminary formulation is:
+The verifier reads files and checks hashes and identities without importing historical training code. The table viewer prints frozen CSV values; it does not compute new scientific results. These commands need no GPU, downloads or third-party Python dependencies.
 
-```text
-min_w  w^T R w + lambda * CoverageLoss(w)
+Construction and training implementations are available for inspection, with external dependencies explicitly identified as unbundled. Do not run historical builders against canonical artifacts. See [supported stages and gaps](docs/REPRODUCIBILITY.md).
 
-subject to:
-  w_i >= 0
-  sum_i w_i = 1
-```
+## Results Snapshot
 
-where `R` is a generator error correlation matrix and `w` is the vector of source mixing weights. This is a preliminary formulation, not a finalized algorithm.
+All ordinary contrasts are **REAL − comparator**. Secondary is probability on the frozen shared-wrong label; NLL is in nats. Positive NLL means worse true-label scoring under REAL.
 
-## Current Progress Checklist
+| Descriptive observation | Frozen evidence |
+| --- | --- |
+| CLINC150 × XLNet, R1: Secondary +0.029098; LocalNLL −0.024081 | [Main table](studies/mlbd2026_wrong_label_organization/results/TABLE_1_DATA.csv): transfer and true-label harm need not agree |
+| CONTROL: both local endpoints positive across all four seeds in 3/4 settings | [Control table](studies/mlbd2026_wrong_label_organization/results/CONTROL_TABLE_DATA.csv): the fourth setting remains visible |
+| Path interaction: LocalNLL `++++`; Secondary `+-++` | [All-seed path table](studies/mlbd2026_wrong_label_organization/results/M3_RESULT_TABLE_DATA.csv) and [summaries](studies/mlbd2026_wrong_label_organization/results/M3_SUMMARY_DATA.csv) |
 
-- [x] Initial literature mapping
-- [x] Research problem formulation
-- [x] Preliminary hypothesis design
-- [x] Initial evaluation protocol
-- [ ] Gaussian mixture simulation
-- [ ] Multi-generator construction
-- [ ] Correlation-aware mixing implementation
-- [ ] Text classification experiments
-- [ ] Ablation studies
-- [ ] Final empirical conclusions
-
-## Planned Experiments
-
-1. Controlled Gaussian mixture simulation
-   - Control generator count, generator error rate, generator error correlation, synthetic data ratio, long-tail coverage, recursive generations, and random seeds.
-2. Real text classification experiments
-   - Candidate datasets: IMDb, SST-2, and AG News.
-   - Candidate generator construction methods: different architectures, data subsets, random seeds, checkpoints, prompts, or decoding strategies.
-
-No formal experiment results are available yet.
-
-## Evaluation Dimensions
-
-Planned evaluation dimensions include accuracy, Macro-F1, cross-generation degradation slope, generator error correlation, common error rate, long-tail recall, semantic or class coverage, output entropy, distribution shift, error inheritance, error amplification, and computational/data cost.
+The path experiment retains seed **1852328752**, whose large response strongly affects the mean and Secondary direction. Four seeds provide limited precision; signs are descriptive, not significance tests. No setting-level pooling is used.
 
 ## Repository Structure
 
 ```text
-correlation-aware-recursive-training/
-├── README.md
-├── README_zh.md
-├── AGENTS.md
-├── .gitignore
-├── requirements.txt
-├── docs/
-│   ├── research_overview.md
-│   ├── literature_map.md
-│   ├── research_questions.md
-│   ├── method_hypothesis.md
-│   ├── experimental_protocol.md
-│   ├── evaluation_rubric.md
-│   ├── roadmap.md
-│   ├── progress_log.md
-│   └── references.md
-├── experiments/
-│   ├── gaussian_mixture/
-│   │   └── README.md
-│   └── text_classification/
-│       └── README.md
-├── configs/
-│   └── README.md
-├── results/
-│   └── README.md
-└── notebooks/
-    └── README.md
+docs/                         Navigation, limitations, chronology, local SVGs
+scripts/                      Read-only verifier and frozen-table viewer
+studies/
+  mlbd2026_wrong_label_organization/
+    configs/                  Frozen contracts; explicit redaction records
+    evidence/                 Seed values, invariant receipts, diagnostics
+    figures/                  Standalone Figure 1 source
+    manifests/                Source/package SHA256 and transformation ledger
+    results/                  Frozen table and figure data
+    scripts/reference/        Historical implementations for inspection
+  recursive_training/         Future scope only
+tests/                        Package-verifier regression checks
 ```
 
-## Reproducibility Principles
+Shared `src/` modules will be introduced when backed by a portable implementation. Original scientific files have not been moved to fit a proposed tree.
 
-Future experiments should fix random seeds, save configuration files, record software environments, preserve commands, and separate hypotheses from observed results.
+## Reproducibility and Evidence
 
-## Limitations and Disclaimer
+Follow [evidence routes](docs/EVIDENCE_ROUTES.md) from each result to its seed-level artifact, construction/config authority and implementation. The [manifest](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json) records source locations and SHA256 values. Imports came from an uncommitted research workspace; its Git HEAD alone does not identify their content.
 
-This repository is at the research planning and early design stage. It does not yet contain validated empirical findings, production-ready code, or final claims about model performance.
+Result CSVs are byte-identical copies. Three JSON records have machine-location redactions recorded by selector. Embedded historical paths are provenance locators, not promises that all original assets are included. [Packaging details](docs/PACKAGING.md).
 
-## Documentation
+## Limitations and Scope
 
-- [Research overview](docs/research_overview.md)
-- [Literature map](docs/literature_map.md)
-- [Research questions](docs/research_questions.md)
-- [Method hypothesis](docs/method_hypothesis.md)
-- [Experimental protocol](docs/experimental_protocol.md)
-- [Evaluation rubric](docs/evaluation_rubric.md)
-- [Roadmap](docs/roadmap.md)
-- [Progress log](docs/progress_log.md)
-- [References](docs/references.md)
+This is a single-generation study, not a new algorithm. The full matrix was not preregistered from the outset. Dataset comparisons also change Source panels, label spaces and subsets. Static analyses are exploratory; the path intervention jointly changes presentation, learning-rate exposure and random-stream assignment. It does not isolate optimizer, dropout or batch-order mediation. [Known limitations](docs/KNOWN_LIMITATIONS.md).
+
+## Roadmap
+
+Current controlled study → separately designed recursive experiments → error propagation analysis → possible mitigation/source mixing, conditional on evidence. Later stages are **future work**. [Roadmap](docs/ROADMAP.md).
+
+## Citation / Rights / Third-Party
+
+No final citation metadata, DOI, acceptance status or author identities are supplied. `CITATION.cff` is deferred until verified public metadata exist. Public visibility does not grant a blanket license. Read [Rights Notice](RIGHTS_NOTICE.md) and [Third-Party Notices](THIRD_PARTY_NOTICES.md). Manuscripts, Overleaf projects, datasets and weights are not bundled.
+
+The [history and naming record](docs/HISTORY_AND_NAMING.md) identifies the archived July 2026 planning state and explains this repository's long-term scope.

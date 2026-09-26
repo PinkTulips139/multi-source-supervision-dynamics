@@ -1,0 +1,46 @@
+{
+  "validator": "PASS",
+  "source_results": {
+    "bert": {
+      "example_count_equal": true,
+      "overall_correct_wrong_vector_equal": true,
+      "overall_accuracy_equal": true,
+      "per_truth_intent_error_count_equal": true,
+      "per_truth_intent_wrong_label_multiset_equal": true,
+      "labels_in_range": true,
+      "correct_examples_unchanged": true
+    },
+    "roberta": {
+      "example_count_equal": true,
+      "overall_correct_wrong_vector_equal": true,
+      "overall_accuracy_equal": true,
+      "per_truth_intent_error_count_equal": true,
+      "per_truth_intent_wrong_label_multiset_equal": true,
+      "labels_in_range": true,
+      "correct_examples_unchanged": true
+    },
+    "deberta": {
+      "example_count_equal": true,
+      "overall_correct_wrong_vector_equal": true,
+      "overall_accuracy_equal": true,
+      "per_truth_intent_error_count_equal": true,
+      "per_truth_intent_wrong_label_multiset_equal": true,
+      "labels_in_range": true,
+      "correct_examples_unchanged": true
+    }
+  },
+  "source_weights_real": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "source_weights_scrambled": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "source_weights_equal": true,
+  "marginal_quality_preserved": true,
+  "per_example_error_identity_preserved": true,
+  "per_intent_confusion_marginals_preserved": true
+}

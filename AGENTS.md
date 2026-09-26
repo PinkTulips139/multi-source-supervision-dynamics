@@ -1,56 +1,17 @@
-﻿# AGENTS.md
+# Research repository governance
 
-Instructions for future Codex sessions working in this repository.
+Read [README](README.md), the [study](studies/mlbd2026_wrong_label_organization/README.md), its [evidence manifest](studies/mlbd2026_wrong_label_organization/manifests/evidence_manifest.json), and [limitations](docs/KNOWN_LIMITATIONS.md) before editing result-facing files.
 
-## Required Context Before Editing
-
-Before making substantive changes, read:
-
-1. `README.md`
-2. `docs/roadmap.md`
-3. `docs/progress_log.md`
-
-## Research Integrity Rules
-
-- Do not fabricate experiments, numbers, paper results, citations, or performance claims.
-- Clearly distinguish:
-  - Literature-supported findings
-  - Working hypotheses
-  - Experimental results
-- Do not describe planned work as completed work.
-- Do not use phrases such as “proved,” “significantly improves,” or “outperforms all baselines” unless supported by actual repository results.
-
-## Experiment Rules
-
-New experiments must:
-
-- Fix random seeds.
-- Save configuration files.
-- Record the environment.
-- Output reproducible commands.
-- Preserve raw outputs or enough metadata to regenerate them.
-- Update `docs/progress_log.md` after substantive work.
-
-## Safety and Privacy Rules
-
-Do not commit:
-
-- API keys
-- `.env` files
-- Private chat logs
-- Paper PDFs
-- Large datasets
-- Model weights
-- Personal privacy information
-- Private notes
-
-## Scope Rule
-
-Do not modify files outside this repository working directory.
-
-## Repository Hygiene
-
-- Keep documentation honest and reproducible.
-- Avoid empty directory sprawl.
-- Do not create fake CSV results, fake plots, fake model outputs, or placeholder claims that look like results.
-- When adding a result, include the command, config, date, and limitations.
+- Current explicit user instructions take precedence. Verified files determine state; notes and old conversation context are contextual only.
+- Never fabricate experiments, numbers, citations or claims. Separate hypothesis, plan, observation and result. Manuscript claims must not exceed evidence.
+- The current study is single-generation. Recursive propagation, collapse and mitigation claims require separate validated experiments. Do not claim lower correlation is always better, smoothness is irrelevant, or a unique mediator is identified.
+- Preserve canonical results, manual manuscript text, frozen protocols, failed runs and negative evidence. No silent recomputation, overwrite, deletion or cosmetic improvement.
+- Do not rerun expensive training, inference or GPU experiments without explicit authorization. Packaging is not training authorization.
+- Preserve fixed seeds, configs, identities, environments, commands and provenance. Record deviations. Git HEAD identifies committed content only; dirty artifacts require source hashes.
+- Do not execute historical reference builders as a shortcut. Their external dependency graphs are incomplete; read [reproduction limits](docs/REPRODUCIBILITY.md).
+- No credentials, `.env`, private email, chat/session logs, submission correspondence, weights, raw datasets or machine-specific secrets in public files.
+- Never use `git reset --hard`, `git clean -fd`, `git clean -fdx`, force push or automatic deletion of failed-run provenance. Audit before moving assets; use isolated worktrees when dirty.
+- Stage explicit paths only, never `git add .` or `git add -A`. Publishing, rename, releases and settings changes require explicit task authorization.
+- No automatic blanket licensing; respect third-party terms. Add author identities and citation metadata only after verification.
+- Run the package verifier and `git diff --check` after changes. Changing expected hashes requires authoritative source review and a recorded reason.
+- Add shared modules only when supported by real code and checked dependencies. Avoid empty scaffolding and duplicate scientific data.
